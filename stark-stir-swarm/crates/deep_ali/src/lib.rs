@@ -944,3 +944,6 @@ pub mod ed25519_verify_air;
 pub mod ed25519_air;
 pub mod p256_field;
 pub mod p256_field_air;
+pub mod p256_scalar;
+pub mod p256_scalar_air;
+pub mod p256_group;
