@@ -505,6 +505,58 @@ pub fn eval_scalar_freeze_gadget(
 }
 
 // ═══════════════════════════════════════════════════════════════════
+//  EQUALITY-CHECK GADGET (canonical-form scalar comparison)
+// ═══════════════════════════════════════════════════════════════════
+//
+// Given two scalar elements (canonical-form, each limb in [0, 2^26))
+// at limb-bases `a_limbs_base` and `b_limbs_base`, emit constraints
+// that the two are equal — i.e., a[k] - b[k] = 0 for k ∈ 0..10.
+//
+// On a valid trace where a == b (both already canonicalised by an
+// upstream scalar_freeze), all 10 constraints evaluate to zero.  If
+// any limb differs, the corresponding constraint is non-zero.
+//
+// This is the final "R.x mod n == r" check in ECDSA verification —
+// the upstream gadgets canonicalise R.x mod n into a scalar element,
+// the caller places r as a scalar element at a known base, and this
+// gadget enforces equality.
+//
+// Cells owned: 0 (no helper cells; constraints are direct).
+// Constraints: 10 deg-1.
+
+/// Number of constraints emitted by one scalar-equality-check gadget.
+pub const SCALAR_EQ_GADGET_CONSTRAINTS: usize = NUM_LIMBS;
+
+/// Cell-offset descriptor for one scalar-equality-check gadget.
+#[derive(Clone, Copy, Debug)]
+pub struct ScalarEqGadgetLayout {
+    pub a_limbs_base: usize,
+    pub b_limbs_base: usize,
+}
+
+/// `fill_scalar_eq_gadget` is a no-op — this gadget owns no cells.
+/// Provided for API symmetry with the other gadgets.
+pub fn fill_scalar_eq_gadget(
+    _trace: &mut [Vec<F>],
+    _row: usize,
+    _layout: &ScalarEqGadgetLayout,
+) {
+    // No cells to fill.
+}
+
+/// Emit the 10 limb-equality constraints.
+pub fn eval_scalar_eq_gadget(cur: &[F], layout: &ScalarEqGadgetLayout) -> Vec<F> {
+    let mut out = Vec::with_capacity(SCALAR_EQ_GADGET_CONSTRAINTS);
+    for k in 0..NUM_LIMBS {
+        let a_k = cur[layout.a_limbs_base + k];
+        let b_k = cur[layout.b_limbs_base + k];
+        out.push(a_k - b_k);
+    }
+    debug_assert_eq!(out.len(), SCALAR_EQ_GADGET_CONSTRAINTS);
+    out
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  Tests
 // ═══════════════════════════════════════════════════════════════════
 
@@ -836,6 +888,93 @@ mod tests {
         let cons = eval_scalar_freeze_gadget(&cur, &layout);
         let nonzero = cons.iter().filter(|v| !v.is_zero()).count();
         assert!(nonzero >= 1, "tampered scalar freeze c-limb undetected");
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    //  Equality-check gadget tests
+    // ─────────────────────────────────────────────────────────────────
+
+    #[test]
+    fn scalar_eq_constants() {
+        assert_eq!(SCALAR_EQ_GADGET_CONSTRAINTS, NUM_LIMBS);
+    }
+
+    #[test]
+    fn scalar_eq_equal_inputs_pass() {
+        // Place the same scalar at two different bases; equality
+        // gadget should yield all-zero constraints.
+        let a_base = 0;
+        let b_base = NUM_LIMBS;
+        let total = 2 * NUM_LIMBS;
+        let mut trace = make_trace_row(total);
+        let s = pseudo_scalar(7);
+        for i in 0..NUM_LIMBS {
+            trace[a_base + i][0] = F::from(s.limbs[i] as u64);
+            trace[b_base + i][0] = F::from(s.limbs[i] as u64);
+        }
+        let layout = ScalarEqGadgetLayout {
+            a_limbs_base: a_base,
+            b_limbs_base: b_base,
+        };
+        let cur: Vec<F> = (0..total).map(|c| trace[c][0]).collect();
+        let cons = eval_scalar_eq_gadget(&cur, &layout);
+        assert_eq!(cons.len(), SCALAR_EQ_GADGET_CONSTRAINTS);
+        for (i, v) in cons.iter().enumerate() {
+            assert!(v.is_zero(), "eq constraint #{} non-zero for equal inputs", i);
+        }
+    }
+
+    #[test]
+    fn scalar_eq_unequal_inputs_fail() {
+        // Place different scalars; at least one constraint is non-zero.
+        let a_base = 0;
+        let b_base = NUM_LIMBS;
+        let total = 2 * NUM_LIMBS;
+        let mut trace = make_trace_row(total);
+        let a = pseudo_scalar(11);
+        let b = pseudo_scalar(13);
+        for i in 0..NUM_LIMBS {
+            trace[a_base + i][0] = F::from(a.limbs[i] as u64);
+            trace[b_base + i][0] = F::from(b.limbs[i] as u64);
+        }
+        let layout = ScalarEqGadgetLayout {
+            a_limbs_base: a_base,
+            b_limbs_base: b_base,
+        };
+        let cur: Vec<F> = (0..total).map(|c| trace[c][0]).collect();
+        let cons = eval_scalar_eq_gadget(&cur, &layout);
+        let nonzero = cons.iter().filter(|v| !v.is_zero()).count();
+        assert!(nonzero >= 1, "eq constraint should fail for unequal inputs");
+    }
+
+    #[test]
+    fn scalar_eq_single_limb_tamper_detected() {
+        // Tamper exactly one limb and verify exactly one constraint
+        // fails (the corresponding limb's).
+        let a_base = 0;
+        let b_base = NUM_LIMBS;
+        let total = 2 * NUM_LIMBS;
+        let mut trace = make_trace_row(total);
+        let s = pseudo_scalar(42);
+        for i in 0..NUM_LIMBS {
+            trace[a_base + i][0] = F::from(s.limbs[i] as u64);
+            trace[b_base + i][0] = F::from(s.limbs[i] as u64);
+        }
+        // Tamper b's limb 4.
+        trace[b_base + 4][0] = trace[b_base + 4][0] + F::one();
+        let layout = ScalarEqGadgetLayout {
+            a_limbs_base: a_base,
+            b_limbs_base: b_base,
+        };
+        let cur: Vec<F> = (0..total).map(|c| trace[c][0]).collect();
+        let cons = eval_scalar_eq_gadget(&cur, &layout);
+        for k in 0..NUM_LIMBS {
+            if k == 4 {
+                assert!(!cons[k].is_zero(), "limb-4 eq constraint should fail");
+            } else {
+                assert!(cons[k].is_zero(), "limb {} eq constraint unexpectedly non-zero", k);
+            }
+        }
     }
 }
 

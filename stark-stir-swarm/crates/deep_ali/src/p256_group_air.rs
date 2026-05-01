@@ -86,12 +86,13 @@ use ark_goldilocks::Goldilocks as F;
 
 use crate::p256_field::{B_CURVE, FieldElement, LIMB_BITS, NUM_LIMBS};
 use crate::p256_field_air::{
-    eval_add_gadget, eval_freeze_gadget, eval_mul_gadget, eval_sub_gadget,
-    fill_add_gadget, fill_freeze_gadget, fill_mul_gadget, fill_sub_gadget,
-    AddGadgetLayout, FreezeGadgetLayout, MulGadgetLayout, SubGadgetLayout,
+    eval_add_gadget, eval_freeze_gadget, eval_mul_gadget, eval_select_gadget,
+    eval_sub_gadget, fill_add_gadget, fill_freeze_gadget, fill_mul_gadget,
+    fill_select_gadget, fill_sub_gadget, AddGadgetLayout, FreezeGadgetLayout,
+    MulGadgetLayout, SelectGadgetLayout, SubGadgetLayout,
     ADD_GADGET_OWNED_CELLS, ELEMENT_BIT_CELLS, ELEMENT_CELLS,
     FREEZE_GADGET_OWNED_CELLS, MUL_CARRY_BITS, MUL_CARRY_POSITIONS,
-    MUL_GADGET_OWNED_CELLS, SUB_GADGET_OWNED_CELLS,
+    MUL_GADGET_OWNED_CELLS, SELECT_GADGET_OWNED_CELLS, SUB_GADGET_OWNED_CELLS,
 };
 
 // ═══════════════════════════════════════════════════════════════════

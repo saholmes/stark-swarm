@@ -40,3 +40,7 @@ mimalloc      = "0.1"
 # and as a runtime baseline.  Not on the runtime verification path —
 # `verify_zsk_ksk_runtime_fallback` uses only `deep_ali`.
 ed25519-dalek = { version = "2.1", features = ["rand_core"] }
+# ECDSA-P256 signing for the cross-algorithm DNS record bench.
+# Verification on the bench path uses our deep_ali::p256_ecdsa, so this
+# is only for synthetic keypair + signature generation.
+p256          = { version = "0.13", features = ["ecdsa"] }

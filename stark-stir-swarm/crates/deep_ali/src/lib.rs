@@ -948,4 +948,8 @@ pub mod p256_scalar;
 pub mod p256_scalar_air;
 pub mod p256_group;
 pub mod p256_group_air;
+pub mod p256_scalar_mul_air;
+pub mod p256_fermat_air;
+pub mod p256_fp_fermat_air;
 pub mod p256_ecdsa;
+pub mod p256_ecdsa_air;
