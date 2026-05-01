@@ -1681,6 +1681,269 @@ pub fn deep_ali_merge_ecdsa_double_multirow(
 }
 
 // ═══════════════════════════════════════════════════════════════════
+//  Row-major RSA-2048 exponentiation merge (one-time LDE transpose)
+// ═══════════════════════════════════════════════════════════════════
+//
+// Reference variant for head-to-head comparison against the streaming
+// merge.  At RSA-2048's $n_0 = 1{,}024$ × $w \approx 11$k row-major
+// LDE buffer (${\sim}90$\,MiB), this fits comfortably in M4 unified
+// memory and the sequential prefetcher handles it efficiently --- so
+// row-major is expected to outperform streaming on this trace shape
+// (mirroring the Ed25519 $K{\leq}64$ regime where the buffer is
+// well-cached).
+pub fn deep_ali_merge_rsa_exp_multirow(
+    trace_evals_on_lde: &[Vec<F>],
+    combination_coeffs: &[F],
+    layout: &crate::rsa2048_exp_air::RsaExpMultirowLayout,
+    omega: F,
+    n_trace: usize,
+    blowup: usize,
+) -> (Vec<F>, CompositionInfo) {
+    use crate::rsa2048_exp_air::{
+        eval_rsa_exp_multirow_per_row, rsa_exp_multirow_constraints,
+    };
+
+    let _ = omega;
+    let n = n_trace * blowup;
+    let w = layout.width;
+    let k = rsa_exp_multirow_constraints(layout);
+
+    assert_eq!(trace_evals_on_lde.len(), w);
+    assert_eq!(combination_coeffs.len(), k);
+    for col in trace_evals_on_lde {
+        assert_eq!(col.len(), n);
+    }
+
+    // One-time row-major transpose.
+    let lde_row_major: Vec<Vec<F>> = if enable_parallel(n) {
+        #[cfg(feature = "parallel")]
+        {
+            (0..n)
+                .into_par_iter()
+                .map(|i| (0..w).map(|c| trace_evals_on_lde[c][i]).collect::<Vec<F>>())
+                .collect()
+        }
+        #[cfg(not(feature = "parallel"))]
+        {
+            (0..n)
+                .map(|i| (0..w).map(|c| trace_evals_on_lde[c][i]).collect::<Vec<F>>())
+                .collect()
+        }
+    } else {
+        (0..n)
+            .map(|i| (0..w).map(|c| trace_evals_on_lde[c][i]).collect::<Vec<F>>())
+            .collect()
+    };
+
+    // Fused per-LDE-point eval + linear combination.
+    let phi_eval: Vec<F>;
+    #[cfg(feature = "parallel")]
+    {
+        if enable_parallel(n) {
+            phi_eval = (0..n)
+                .into_par_iter()
+                .map(|i| {
+                    let cur: &[F] = &lde_row_major[i];
+                    let nxt_idx = (i + blowup) % n;
+                    let nxt: &[F] = &lde_row_major[nxt_idx];
+                    let trace_row = i / blowup;
+                    let cvals = eval_rsa_exp_multirow_per_row(
+                        cur, nxt, trace_row, n_trace, layout,
+                    );
+                    let mut acc = F::zero();
+                    for j in 0..k {
+                        acc += combination_coeffs[j] * cvals[j];
+                    }
+                    acc
+                })
+                .collect();
+        } else {
+            phi_eval = (0..n)
+                .map(|i| {
+                    let cur: &[F] = &lde_row_major[i];
+                    let nxt_idx = (i + blowup) % n;
+                    let nxt: &[F] = &lde_row_major[nxt_idx];
+                    let trace_row = i / blowup;
+                    let cvals = eval_rsa_exp_multirow_per_row(
+                        cur, nxt, trace_row, n_trace, layout,
+                    );
+                    let mut acc = F::zero();
+                    for j in 0..k {
+                        acc += combination_coeffs[j] * cvals[j];
+                    }
+                    acc
+                })
+                .collect();
+        }
+    }
+    #[cfg(not(feature = "parallel"))]
+    {
+        phi_eval = (0..n)
+            .map(|i| {
+                let cur: &[F] = &lde_row_major[i];
+                let nxt_idx = (i + blowup) % n;
+                let nxt: &[F] = &lde_row_major[nxt_idx];
+                let trace_row = i / blowup;
+                let cvals = eval_rsa_exp_multirow_per_row(
+                    cur, nxt, trace_row, n_trace, layout,
+                );
+                let mut acc = F::zero();
+                for j in 0..k {
+                    acc += combination_coeffs[j] * cvals[j];
+                }
+                acc
+            })
+            .collect();
+    }
+    drop(lde_row_major);
+
+    let domain =
+        GeneralEvaluationDomain::<F>::new(n).expect("power-of-two domain");
+    let phi_coeffs = domain.ifft(&phi_eval);
+    let c_coeffs = poly_div_zh(&phi_coeffs, n_trace);
+    let mut padded = c_coeffs.clone();
+    padded.resize(n, F::zero());
+    let c_eval = domain.fft(&padded);
+
+    let max_deg = 2usize;
+    let phi_degree_bound = max_deg * n_trace;
+    let quotient_degree_bound = if phi_degree_bound > n_trace {
+        phi_degree_bound - n_trace
+    } else { 0 };
+    let info = CompositionInfo {
+        phi_degree_bound,
+        quotient_degree_bound,
+        rate: quotient_degree_bound as f64 / n as f64,
+        num_constraints: k,
+        max_constraint_degree: max_deg,
+        trace_width: w,
+    };
+    (c_eval, info)
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  Streaming RSA-2048 exponentiation merge (chunked LDE access)
+// ═══════════════════════════════════════════════════════════════════
+pub fn deep_ali_merge_rsa_exp_multirow_streaming(
+    trace_evals_on_lde: &[Vec<F>],
+    combination_coeffs: &[F],
+    layout: &crate::rsa2048_exp_air::RsaExpMultirowLayout,
+    omega: F,
+    n_trace: usize,
+    blowup: usize,
+) -> (Vec<F>, CompositionInfo) {
+    use crate::rsa2048_exp_air::{
+        eval_rsa_exp_multirow_per_row, rsa_exp_multirow_constraints,
+    };
+
+    let _ = omega;
+    let n = n_trace * blowup;
+    let w = layout.width;
+    let k = rsa_exp_multirow_constraints(layout);
+
+    assert_eq!(trace_evals_on_lde.len(), w);
+    assert_eq!(combination_coeffs.len(), k);
+    for col in trace_evals_on_lde {
+        assert_eq!(col.len(), n);
+    }
+
+    let build_chunk = |base: usize| -> Vec<Vec<F>> {
+        #[cfg(feature = "parallel")]
+        {
+            (0..blowup)
+                .into_par_iter()
+                .map(|idx| (0..w).map(|c| trace_evals_on_lde[c][base + idx]).collect())
+                .collect()
+        }
+        #[cfg(not(feature = "parallel"))]
+        {
+            (0..blowup)
+                .map(|idx| (0..w).map(|c| trace_evals_on_lde[c][base + idx]).collect())
+                .collect()
+        }
+    };
+
+    let mut phi_eval = vec![F::zero(); n];
+    let mut cur_chunk = build_chunk(0);
+    let chunk0_for_wrap = cur_chunk.clone();
+
+    for r in 0..n_trace {
+        let nxt_chunk: Vec<Vec<F>> = if r + 1 < n_trace {
+            build_chunk((r + 1) * blowup)
+        } else {
+            chunk0_for_wrap.clone()
+        };
+
+        let base = r * blowup;
+        let trace_row = r;
+
+        let chunk_phi: Vec<F>;
+        #[cfg(feature = "parallel")]
+        {
+            chunk_phi = (0..blowup)
+                .into_par_iter()
+                .map(|idx| {
+                    let cur: &[F] = &cur_chunk[idx];
+                    let nxt: &[F] = &nxt_chunk[idx];
+                    let cvals = eval_rsa_exp_multirow_per_row(
+                        cur, nxt, trace_row, n_trace, layout,
+                    );
+                    let mut acc = F::zero();
+                    for j in 0..k {
+                        acc += combination_coeffs[j] * cvals[j];
+                    }
+                    acc
+                })
+                .collect();
+        }
+        #[cfg(not(feature = "parallel"))]
+        {
+            chunk_phi = (0..blowup)
+                .map(|idx| {
+                    let cur: &[F] = &cur_chunk[idx];
+                    let nxt: &[F] = &nxt_chunk[idx];
+                    let cvals = eval_rsa_exp_multirow_per_row(
+                        cur, nxt, trace_row, n_trace, layout,
+                    );
+                    let mut acc = F::zero();
+                    for j in 0..k {
+                        acc += combination_coeffs[j] * cvals[j];
+                    }
+                    acc
+                })
+                .collect();
+        }
+        for (idx, v) in chunk_phi.into_iter().enumerate() {
+            phi_eval[base + idx] = v;
+        }
+        cur_chunk = nxt_chunk;
+    }
+
+    let domain =
+        GeneralEvaluationDomain::<F>::new(n).expect("power-of-two domain");
+    let phi_coeffs = domain.ifft(&phi_eval);
+    let c_coeffs = poly_div_zh(&phi_coeffs, n_trace);
+    let mut padded = c_coeffs.clone();
+    padded.resize(n, F::zero());
+    let c_eval = domain.fft(&padded);
+
+    let max_deg = 2usize;
+    let phi_degree_bound = max_deg * n_trace;
+    let quotient_degree_bound = if phi_degree_bound > n_trace {
+        phi_degree_bound - n_trace
+    } else { 0 };
+    let info = CompositionInfo {
+        phi_degree_bound,
+        quotient_degree_bound,
+        rate: quotient_degree_bound as f64 / n as f64,
+        num_constraints: k,
+        max_constraint_degree: max_deg,
+        trace_width: w,
+    };
+    (c_eval, info)
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  Legacy single-constraint merge (Fibonacci: Φ̃ = a·s + e − t)
 // ═══════════════════════════════════════════════════════════════════
 
@@ -1798,3 +2061,6 @@ pub mod p256_fermat_air;
 pub mod p256_fp_fermat_air;
 pub mod p256_ecdsa;
 pub mod p256_ecdsa_air;
+pub mod rsa2048;
+pub mod rsa2048_field_air;
+pub mod rsa2048_exp_air;

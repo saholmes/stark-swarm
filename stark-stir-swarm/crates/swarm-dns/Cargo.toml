@@ -44,3 +44,10 @@ ed25519-dalek = { version = "2.1", features = ["rand_core"] }
 # Verification on the bench path uses our deep_ali::p256_ecdsa, so this
 # is only for synthetic keypair + signature generation.
 p256          = { version = "0.13", features = ["ecdsa"] }
+# RSA-2048 keypair generation + signing for the cross-algorithm DNS
+# record bench.  Verification uses our deep_ali::rsa2048 native verifier
+# (and, when in-circuit AIR lands, the in-circuit STARK).
+rsa           = { version = "0.9", features = ["sha2"] }
+num-bigint    = "0.4"
+ark-ff        = { workspace = true }
+ark-goldilocks = { workspace = true }

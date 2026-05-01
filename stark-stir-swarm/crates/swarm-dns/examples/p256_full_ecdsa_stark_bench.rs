@@ -165,10 +165,38 @@ fn run_double_chain_streaming(k: usize) {
     let b_bits: Vec<bool> = (0..k).map(|i| i % 3 == 0).collect();
 
     let t_fill = Instant::now();
+    let zero_fe = FieldElement::zero();
+    // Pass 1 to capture chain outputs.
     fill_ecdsa_double_multirow(
         &mut trace, &layout, n_trace, k, k,
         &g.x, &g.y, &z_one, &g.x, &g.y, &z_one, &a_bits,
         &q.x, &q.y, &z_one, &q.x, &q.y, &z_one, &b_bits,
+        &zero_fe, &zero_fe, &zero_fe, &zero_fe, &zero_fe, &zero_fe,
+    );
+    let read_fe = |trace: &[Vec<F>], base: usize, row: usize| -> FieldElement {
+        use ark_ff::PrimeField;
+        let mut limbs = [0i64; NUM_LIMBS];
+        for i in 0..NUM_LIMBS {
+            let v = trace[base + i][row];
+            let bi = v.into_bigint();
+            limbs[i] = bi.as_ref()[0] as i64;
+        }
+        FieldElement { limbs }
+    };
+    let last = k - 1;
+    let r_a_x = read_fe(&trace, layout.step_a.select_x.c_limbs_base, last);
+    let r_a_y = read_fe(&trace, layout.step_a.select_y.c_limbs_base, last);
+    let r_a_z = read_fe(&trace, layout.step_a.select_z.c_limbs_base, last);
+    let r_b_x = read_fe(&trace, layout.step_b.select_x.c_limbs_base, last);
+    let r_b_y = read_fe(&trace, layout.step_b.select_y.c_limbs_base, last);
+    let r_b_z = read_fe(&trace, layout.step_b.select_z.c_limbs_base, last);
+    // Pass 2 with correct r_proj.
+    trace = (0..total_cells).map(|_| vec![F::zero(); n_trace]).collect();
+    fill_ecdsa_double_multirow(
+        &mut trace, &layout, n_trace, k, k,
+        &g.x, &g.y, &z_one, &g.x, &g.y, &z_one, &a_bits,
+        &q.x, &q.y, &z_one, &q.x, &q.y, &z_one, &b_bits,
+        &r_a_x, &r_a_y, &r_a_z, &r_b_x, &r_b_y, &r_b_z,
     );
     let fill_dur = t_fill.elapsed();
     println!("    [fill]      {:>10.2?}", fill_dur);

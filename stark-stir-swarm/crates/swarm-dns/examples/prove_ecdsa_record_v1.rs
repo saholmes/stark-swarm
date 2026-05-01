@@ -3,28 +3,25 @@
 //! Wires a real ECDSA-P256 signature through the in-circuit
 //! double-chain multi-row STARK at production parameters $K{=}256$.
 //!
-//! Soundness model (v1):
+//! Soundness model (v2):
 //!   - **In-circuit** (the dominant 99.9 % of cost): the
 //!     $K{=}256$ double scalar-mul $u_1{\cdot}G + u_2{\cdot}Q$ is
-//!     proved end-to-end via
-//!     `deep_ali_merge_ecdsa_double_multirow_streaming`. The trace
-//!     is filled from real $(u_1, u_2)$ derived from the signature,
-//!     and all $\sim 1.27 \times 10^9$ transition constraint
-//!     evaluations satisfy on the LDE domain with local STARK
-//!     verify passing.
-//!   - **Native at prove time** (the remaining 0.1 %): the chain
-//!     output projective-to-affine conversion ($Z^{-1}$ Fermat),
-//!     the final group-add, the $R.x \bmod n$ reduction, and the
-//!     equality check $R.x \bmod n == r$ are computed natively
-//!     out-of-circuit. The native ECDSA verifier (RFC 6979
-//!     compliant) is invoked at prove time, and the prover refuses
-//!     to emit a STARK for an invalid signature. This is a strictly
-//!     stronger soundness model than the original DNSSEC RSA T2
-//!     fallback, but a strictly weaker one than the Ed25519
-//!     v16 STARK (which is fully in-circuit).
+//!     proved end-to-end, AND a boundary constraint at row $K-1$
+//!     binds the chain outputs (projective $R_a$, $R_b$) to
+//!     verifier-derivable r_proj columns committed via
+//!     $\pi_{\mathrm{hash}}$.
+//!   - **Verifier-side (deterministic)**: the verifier replays the
+//!     same RCB-2016 chain natively to derive $R_a = u_1{\cdot}G$
+//!     and $R_b = u_2{\cdot}Q$ in the same projective form, then
+//!     does the final affine conversion ($Z^{-1}$), $R.x \bmod n$
+//!     reduction, and equality check $R.x \bmod n == r$ out of
+//!     circuit. Any disagreement between the prover's r_proj
+//!     columns and the verifier's chain reproduction makes
+//!     $\pi_{\mathrm{hash}}$ mismatch and FRI verify fail.
 //!
-//! v2 (deferred): rigorous in-circuit final ops via a multi-row
-//! Fermat extension to the AIR, eliminating the native fall-through.
+//! v3 (future): bring the projective-to-affine + $R.x \bmod n$ +
+//! equality fully in-circuit via a multi-row Fermat extension to
+//! the AIR, eliminating the verifier-side EC/modular arithmetic.
 //!
 //! Run:
 //!     cargo run --release -p swarm-dns --example prove_ecdsa_record_v1
@@ -45,7 +42,7 @@ use deep_ali::{
         build_ecdsa_double_multirow_layout, ecdsa_double_multirow_constraints,
         fill_ecdsa_double_multirow,
     },
-    p256_field::FieldElement,
+    p256_field::{FieldElement, NUM_LIMBS},
     p256_group::GENERATOR,
     p256_scalar::ScalarElement,
     sextic_ext::SexticExt,
@@ -147,10 +144,46 @@ fn prove_ecdsa_record_v1(
     };
 
     let t_fill = Instant::now();
+    // Pass 1: dummy r_proj = 0 to capture the chain outputs.
+    let zero_fe = FieldElement::zero();
     fill_ecdsa_double_multirow(
         &mut trace, &layout, n_trace, K, K,
         &g.x, &g.y, &z_one, &g.x, &g.y, &z_one, &u1_bits,
         &q_point.x, &q_point.y, &z_one, &q_point.x, &q_point.y, &z_one, &u2_bits,
+        &zero_fe, &zero_fe, &zero_fe, &zero_fe, &zero_fe, &zero_fe,
+    );
+
+    // Read chain outputs at row K-1.
+    let read_fe = |trace: &[Vec<F>], base: usize, row: usize| -> FieldElement {
+        use ark_ff::PrimeField;
+        let mut limbs = [0i64; NUM_LIMBS];
+        for i in 0..NUM_LIMBS {
+            let v = trace[base + i][row];
+            let bi = v.into_bigint();
+            limbs[i] = bi.as_ref()[0] as i64;
+        }
+        FieldElement { limbs }
+    };
+    let last_row = K - 1;
+    let r_a_x = read_fe(&trace, layout.step_a.select_x.c_limbs_base, last_row);
+    let r_a_y = read_fe(&trace, layout.step_a.select_y.c_limbs_base, last_row);
+    let r_a_z = read_fe(&trace, layout.step_a.select_z.c_limbs_base, last_row);
+    let r_b_x = read_fe(&trace, layout.step_b.select_x.c_limbs_base, last_row);
+    let r_b_y = read_fe(&trace, layout.step_b.select_y.c_limbs_base, last_row);
+    let r_b_z = read_fe(&trace, layout.step_b.select_z.c_limbs_base, last_row);
+
+    // Pass 2: refill with correct r_proj values.  This populates the
+    // r_proj columns with the chain outputs that the verifier will
+    // also derive deterministically by replaying the same RCB-2016
+    // chain with the same (G, u_1) and (Q, u_2).
+    trace = (0..total_cells)
+        .map(|_| vec![F::zero(); n_trace])
+        .collect();
+    fill_ecdsa_double_multirow(
+        &mut trace, &layout, n_trace, K, K,
+        &g.x, &g.y, &z_one, &g.x, &g.y, &z_one, &u1_bits,
+        &q_point.x, &q_point.y, &z_one, &q_point.x, &q_point.y, &z_one, &u2_bits,
+        &r_a_x, &r_a_y, &r_a_z, &r_b_x, &r_b_y, &r_b_z,
     );
     println!("    [fill] {:.2?}", t_fill.elapsed());
 
@@ -240,11 +273,12 @@ fn prove_ecdsa_record_v1(
 }
 
 fn main() {
-    println!("=== End-to-end ECDSA-P256 RRSIG STARK proof (v1) ===");
+    println!("=== End-to-end ECDSA-P256 RRSIG STARK proof (v2) ===");
     println!();
     println!("Soundness model:");
-    println!("  In-circuit (99.9%): K=256 double scalar-mul u_1·G + u_2·Q");
-    println!("  Native at prove (0.1%): final group_add, Z^-1, R.x mod n, equality");
+    println!("  In-circuit: K=256 double scalar-mul u_1·G + u_2·Q");
+    println!("           + boundary at row K-1 binding chain output to r_proj (Phase 4)");
+    println!("  Verifier-side (deterministic): replay RCB-2016 chain + Z^-1 + R.x mod n + equality");
     println!();
 
     // Use the RFC 6979 §A.2.5 P-256 + SHA-256 sample vector.

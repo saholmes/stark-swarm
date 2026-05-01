@@ -29,14 +29,36 @@ use crate::p256_scalar_mul_air::{
 
 /// Double-chain multi-row layout: two `scalar_mul_step` gadgets in
 /// parallel per row, sharing the same trace.
+///
+/// **Phase 4 v2 binding cells** (`r_*_proj_*_base`): 6 × NUM_LIMBS
+/// dedicated columns holding the verifier-supplied projective output
+/// $R_a = u_1{\cdot}G$ and $R_b = u_2{\cdot}Q$, replicated across all
+/// rows.  Boundary constraints at the last active row tie the chain
+/// outputs (`step_*.select_*.c_limbs_base`) to these cells, so the
+/// verifier deterministically computes $R_a$ and $R_b$ from the
+/// signature inputs and binds them into `pi_hash`.  Any disagreement
+/// makes `pi_hash` mismatch and FRI verification fail.
 #[derive(Clone, Debug)]
 pub struct EcdsaDoubleMultirowLayout {
     pub step_a: ScalarMulStepGadgetLayout, // u_1·G chain
     pub step_b: ScalarMulStepGadgetLayout, // u_2·Q chain
+    /// Verifier-supplied projective output for the u_1·G chain.
+    pub r_a_proj_x_base: usize,
+    pub r_a_proj_y_base: usize,
+    pub r_a_proj_z_base: usize,
+    /// Verifier-supplied projective output for the u_2·Q chain.
+    pub r_b_proj_x_base: usize,
+    pub r_b_proj_y_base: usize,
+    pub r_b_proj_z_base: usize,
     pub width: usize,
 }
 
-pub const DOUBLE_MULTIROW_TRANSITION_CONSTRAINTS: usize = 2 * 3 * NUM_LIMBS;
+/// 2 chains × 3 components × NUM_LIMBS = 60 acc transitions
+/// + 6 × NUM_LIMBS = 60 r_proj column-constancy transitions.
+pub const DOUBLE_MULTIROW_TRANSITION_CONSTRAINTS: usize = 2 * 3 * NUM_LIMBS + 6 * NUM_LIMBS;
+
+/// Boundary at the last active row binds chain outputs to r_proj cells.
+pub const DOUBLE_MULTIROW_BOUNDARY_CONSTRAINTS: usize = 6 * NUM_LIMBS;
 
 pub fn build_ecdsa_double_multirow_layout(start: usize) -> (EcdsaDoubleMultirowLayout, usize) {
     let mut cursor = start;
@@ -67,9 +89,23 @@ pub fn build_ecdsa_double_multirow_layout(start: usize) -> (EcdsaDoubleMultirowL
     );
     cursor = end_b;
 
+    // Verifier-supplied projective outputs (Phase 4 v2 binding).
+    let r_a_proj_x_base = cursor; cursor += NUM_LIMBS;
+    let r_a_proj_y_base = cursor; cursor += NUM_LIMBS;
+    let r_a_proj_z_base = cursor; cursor += NUM_LIMBS;
+    let r_b_proj_x_base = cursor; cursor += NUM_LIMBS;
+    let r_b_proj_y_base = cursor; cursor += NUM_LIMBS;
+    let r_b_proj_z_base = cursor; cursor += NUM_LIMBS;
+
     let layout = EcdsaDoubleMultirowLayout {
         step_a,
         step_b,
+        r_a_proj_x_base,
+        r_a_proj_y_base,
+        r_a_proj_z_base,
+        r_b_proj_x_base,
+        r_b_proj_y_base,
+        r_b_proj_z_base,
         width: cursor,
     };
     (layout, cursor)
@@ -82,11 +118,18 @@ pub fn ecdsa_double_multirow_local_constraints(layout: &EcdsaDoubleMultirowLayou
 
 pub fn ecdsa_double_multirow_constraints(layout: &EcdsaDoubleMultirowLayout) -> usize {
     ecdsa_double_multirow_local_constraints(layout)
+        + DOUBLE_MULTIROW_BOUNDARY_CONSTRAINTS
         + DOUBLE_MULTIROW_TRANSITION_CONSTRAINTS
 }
 
 /// Fill the double-chain trace.  `n_trace >= max(k_a_steps, k_b_steps)`.
 /// Both chains run with bit=0 padding past their respective k_steps.
+///
+/// **Phase 4 v2 r_proj inputs**: callers also supply
+/// `r_a_proj_*` and `r_b_proj_*` (the verifier-derivable projective
+/// outputs).  These are placed in the dedicated columns and bound to
+/// the chain outputs at row `last_active_row` via boundary constraints
+/// in `eval_ecdsa_double_multirow_per_row`.
 #[allow(clippy::too_many_arguments)]
 pub fn fill_ecdsa_double_multirow(
     trace: &mut [Vec<F>],
@@ -108,6 +151,12 @@ pub fn fill_ecdsa_double_multirow(
     b_base_y: &FieldElement,
     b_base_z: &FieldElement,
     b_bits: &[bool],
+    r_a_proj_x: &FieldElement,
+    r_a_proj_y: &FieldElement,
+    r_a_proj_z: &FieldElement,
+    r_b_proj_x: &FieldElement,
+    r_b_proj_y: &FieldElement,
+    r_b_proj_z: &FieldElement,
 ) {
     use ark_ff::PrimeField;
 
@@ -173,6 +222,14 @@ pub fn fill_ecdsa_double_multirow(
         b_acc_x = read(trace, layout.step_b.select_x.c_limbs_base, r);
         b_acc_y = read(trace, layout.step_b.select_y.c_limbs_base, r);
         b_acc_z = read(trace, layout.step_b.select_z.c_limbs_base, r);
+
+        // r_proj columns: replicated verifier-supplied values.
+        place_fe(trace, layout.r_a_proj_x_base, r, r_a_proj_x);
+        place_fe(trace, layout.r_a_proj_y_base, r, r_a_proj_y);
+        place_fe(trace, layout.r_a_proj_z_base, r, r_a_proj_z);
+        place_fe(trace, layout.r_b_proj_x_base, r, r_b_proj_x);
+        place_fe(trace, layout.r_b_proj_y_base, r, r_b_proj_y);
+        place_fe(trace, layout.r_b_proj_z_base, r, r_b_proj_z);
     }
 }
 
@@ -190,8 +247,28 @@ pub fn eval_ecdsa_double_multirow_per_row(
     out.extend(eval_scalar_mul_step_gadget(cur, &layout.step_a));
     out.extend(eval_scalar_mul_step_gadget(cur, &layout.step_b));
 
-    // Transition constraints: both chains independently.  Suppressed
-    // (zeros) on the last row to respect FFT periodicity.
+    // Boundary: at the last active chain row (n_trace - 1), bind
+    // chain outputs to the verifier-supplied r_proj columns.
+    // (60 constraint slots; emitted at the last row, zeroed elsewhere.)
+    let is_last_active = trace_row + 1 == n_trace;
+    let push_boundary = |out: &mut Vec<F>, chain_base: usize, proj_base: usize| {
+        for i in 0..NUM_LIMBS {
+            if is_last_active {
+                out.push(cur[chain_base + i] - cur[proj_base + i]);
+            } else {
+                out.push(F::zero());
+            }
+        }
+    };
+    push_boundary(&mut out, layout.step_a.select_x.c_limbs_base, layout.r_a_proj_x_base);
+    push_boundary(&mut out, layout.step_a.select_y.c_limbs_base, layout.r_a_proj_y_base);
+    push_boundary(&mut out, layout.step_a.select_z.c_limbs_base, layout.r_a_proj_z_base);
+    push_boundary(&mut out, layout.step_b.select_x.c_limbs_base, layout.r_b_proj_x_base);
+    push_boundary(&mut out, layout.step_b.select_y.c_limbs_base, layout.r_b_proj_y_base);
+    push_boundary(&mut out, layout.step_b.select_z.c_limbs_base, layout.r_b_proj_z_base);
+
+    // Transition constraints: both chains' acc + r_proj column
+    // constancy.  Suppressed on the last row (FFT periodicity).
     if trace_row + 1 < n_trace {
         for i in 0..NUM_LIMBS {
             out.push(nxt[layout.step_a.acc_x_base + i] - cur[layout.step_a.select_x.c_limbs_base + i]);
@@ -210,6 +287,15 @@ pub fn eval_ecdsa_double_multirow_per_row(
         }
         for i in 0..NUM_LIMBS {
             out.push(nxt[layout.step_b.acc_z_base + i] - cur[layout.step_b.select_z.c_limbs_base + i]);
+        }
+        // r_proj column-constancy (6 × NUM_LIMBS).
+        for base in &[
+            layout.r_a_proj_x_base, layout.r_a_proj_y_base, layout.r_a_proj_z_base,
+            layout.r_b_proj_x_base, layout.r_b_proj_y_base, layout.r_b_proj_z_base,
+        ] {
+            for i in 0..NUM_LIMBS {
+                out.push(nxt[*base + i] - cur[*base + i]);
+            }
         }
     } else {
         for _ in 0..DOUBLE_MULTIROW_TRANSITION_CONSTRAINTS {
@@ -279,10 +365,42 @@ mod tests {
         let a_bits = vec![true, false, true, false];
         let b_bits = vec![false, true, true, false];
 
+        // Pass 1: fill with placeholder r_proj=0 to capture actual
+        // chain outputs.  (Boundary will fail, but we ignore it here.)
+        let zero_fe = FieldElement::zero();
         fill_ecdsa_double_multirow(
             &mut trace, &layout, n_trace, k, k,
             &g.x, &g.y, &z_one, &g.x, &g.y, &z_one, &a_bits,
             &q.x, &q.y, &z_one, &q.x, &q.y, &z_one, &b_bits,
+            &zero_fe, &zero_fe, &zero_fe, &zero_fe, &zero_fe, &zero_fe,
+        );
+
+        // Read chain outputs at the last active row.
+        let read_fe = |trace: &[Vec<F>], base: usize, row: usize| -> FieldElement {
+            use ark_ff::PrimeField;
+            let mut limbs = [0i64; NUM_LIMBS];
+            for i in 0..NUM_LIMBS {
+                let v = trace[base + i][row];
+                let bi = v.into_bigint();
+                limbs[i] = bi.as_ref()[0] as i64;
+            }
+            FieldElement { limbs }
+        };
+        let last_row = n_trace - 1;
+        let r_a_x = read_fe(&trace, layout.step_a.select_x.c_limbs_base, last_row);
+        let r_a_y = read_fe(&trace, layout.step_a.select_y.c_limbs_base, last_row);
+        let r_a_z = read_fe(&trace, layout.step_a.select_z.c_limbs_base, last_row);
+        let r_b_x = read_fe(&trace, layout.step_b.select_x.c_limbs_base, last_row);
+        let r_b_y = read_fe(&trace, layout.step_b.select_y.c_limbs_base, last_row);
+        let r_b_z = read_fe(&trace, layout.step_b.select_z.c_limbs_base, last_row);
+
+        // Pass 2: refill with correct r_proj values.
+        let mut trace = make_trace(total_cells, n_trace);
+        fill_ecdsa_double_multirow(
+            &mut trace, &layout, n_trace, k, k,
+            &g.x, &g.y, &z_one, &g.x, &g.y, &z_one, &a_bits,
+            &q.x, &q.y, &z_one, &q.x, &q.y, &z_one, &b_bits,
+            &r_a_x, &r_a_y, &r_a_z, &r_b_x, &r_b_y, &r_b_z,
         );
 
         let mut total_failures = 0;
@@ -297,5 +415,37 @@ mod tests {
         }
         assert_eq!(total_failures, 0,
             "double-multirow K=4 had {} non-zero", total_failures);
+    }
+
+    #[test]
+    fn double_multirow_wrong_rproj_violates_boundary() {
+        // Bogus r_proj_a should violate at least the row-(n-1) boundary.
+        let (layout, total_cells) = build_ecdsa_double_multirow_layout(0);
+        let n_trace = 4;
+        let k = 4;
+        let mut trace = make_trace(total_cells, n_trace);
+        let g = *GENERATOR;
+        let q = g.double();
+        let z_one = {
+            let mut t = FieldElement::zero();
+            t.limbs[0] = 1;
+            t
+        };
+        let bits = vec![true, false, true, false];
+        let bogus = FieldElement { limbs: [42i64; NUM_LIMBS] };
+        fill_ecdsa_double_multirow(
+            &mut trace, &layout, n_trace, k, k,
+            &g.x, &g.y, &z_one, &g.x, &g.y, &z_one, &bits,
+            &q.x, &q.y, &z_one, &q.x, &q.y, &z_one, &bits,
+            &bogus, &bogus, &bogus, &bogus, &bogus, &bogus,
+        );
+        // Eval the last row: boundary should fire non-zero.
+        let last = n_trace - 1;
+        let cur: Vec<F> = (0..total_cells).map(|c| trace[c][last]).collect();
+        let nxt_idx = (last + 1) % n_trace;
+        let nxt: Vec<F> = (0..total_cells).map(|c| trace[c][nxt_idx]).collect();
+        let cons = eval_ecdsa_double_multirow_per_row(&cur, &nxt, last, n_trace, &layout);
+        let nonzero = cons.iter().filter(|v| !v.is_zero()).count();
+        assert!(nonzero >= 1, "bogus r_proj must violate ≥1 boundary, got {}", nonzero);
     }
 }

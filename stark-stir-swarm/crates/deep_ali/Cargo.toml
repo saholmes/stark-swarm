@@ -39,6 +39,7 @@ ark-goldilocks = { path = "../ark-goldilocks" }
 # no extra features.
 num-bigint = "0.4"
 num-traits = "0.2"
+sha2 = "0.10"
 
 
 
