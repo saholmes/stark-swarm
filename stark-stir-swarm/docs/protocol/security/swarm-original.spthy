@@ -1,0 +1,313 @@
+/*
+ * STIR-DNS Swarm Proving Protocol — Tamarin model
+ * ===============================================
+ *
+ * This theory captures the application-layer cryptographic semantics of
+ * the protocol described in `swarm-protocol.tex`. TLS 1.3 is abstracted
+ * as an authenticated, confidential channel between named hosts (the
+ * standard secure-channel model).  Inside that channel we model:
+ *
+ *   * ML-DSA signatures (worker attestations, ctrl receipts, authority
+ *     zone-digest signature) via Tamarin's built-in signing theory.
+ *   * STIR proofs as a deterministic function `stir(records, fs)` that
+ *     an adversary cannot invert — i.e. it can only produce a valid
+ *     proof for given (records, fs) by holding the records and running
+ *     the prover.
+ *   * The controller's expected-merkle-root pinning by including the
+ *     records bound to the shard in the FS tag.
+ *
+ * Run with:
+ *     tamarin-prover --prove swarm.spthy
+ *
+ * Or interactively:
+ *     tamarin-prover interactive swarm.spthy
+ *
+ * Lemma `authority_binding`, `shard_inclusion`, `replay_freshness`
+ * should auto-prove. `witness_quorum_M_of_N` is stated for review;
+ * a full machine proof of M-of-N typically needs explicit reuse
+ * lemmas / counter induction.
+ */
+
+theory STIR_DNS_Swarm
+begin
+
+builtins: signing, hashing, symmetric-encryption
+
+functions:
+    /* deterministic STIR prover; one-way except via the legitimate prover */
+    stir/2,
+    /* pi_hash recipe: H(salt || count || mroot || rootf0 || fs) */
+    pi_hash_recipe/5,
+    /* attestation digest: H("attest" || shard_id || pi_hash || mroot || rootf0) */
+    attest_digest/4,
+    /* ctrl receipt digest: H("ctrl-receipt" || job_id || shard_id || worker_id || pi_hash || mroot || ts) */
+    receipt_digest/7,
+    /* fs binding: H("shard-fs" || pk_C || job_id || shard_id || nonce) */
+    fs_binding/5,
+    /* zone digest: H("zone-auth" || level || salt || count || rootf0_outer || pk_C) */
+    zone_digest/6
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Setup: long-term keys for named principals
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* Generate a worker identity key bound to a public id `~w` and put its
+ * fingerprint into the controller's allowlist (E1).  Private key is
+ * persistent and deterministic per worker.
+ */
+rule WorkerKeyGen:
+    [ Fr(~sk) ]
+  --[ WorkerKey($W, ~sk) ]->
+    [ !WorkerLtk($W, ~sk),
+      !Pk($W, pk(~sk)),
+      Out(pk(~sk)) ]
+
+rule CtrlKeyGen:
+    [ Fr(~sk) ]
+  --[ CtrlKey($C, ~sk) ]->
+    [ !CtrlLtk($C, ~sk),
+      !Pk($C, pk(~sk)),
+      Out(pk(~sk)) ]
+
+rule WitnessKeyGen:
+    [ Fr(~sk) ]
+  --[ WitnessKey($V, ~sk) ]->
+    [ !WitnessLtk($V, ~sk),
+      !Pk($V, pk(~sk)),
+      Out(pk(~sk)) ]
+
+/* Allowlisting: an out-of-band step that registers a worker pk
+ * fingerprint with a primary controller. This is the trust anchor for
+ * the swarm; an adversary cannot insert into the allowlist.
+ */
+rule Allowlist:
+    [ !CtrlLtk($C, skC),
+      !Pk($W, pkW) ]
+  --[ Allowlisted($C, $W) ]->
+    [ !Allow($C, $W) ]
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Phase 2: AssignShard (controller → worker)
+ *  Models: (a) per-job random ID, (b) per-shard random nonce,
+ *          (c) sealed authenticated channel.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+rule AssignShard:
+    let
+      pk_C = pk(skC)
+      fs   = fs_binding('shard_fs', pk_C, ~jobId, $sid, ~nonce)
+    in
+    [ !CtrlLtk($C, skC),
+      !Pk($W, pkW),
+      !Allow($C, $W),
+      Fr(~jobId), Fr(~nonce) ]
+  --[ Assigned($C, $W, ~jobId, $sid, ~nonce, $records) ]->
+    [ Out(senc(<'assign', ~jobId, $sid, ~nonce, $records, pk_C>, skC)),
+      St_CtrlAssigned($C, $W, ~jobId, $sid, ~nonce, $records, pk_C) ]
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Phase 3: worker proves + attests
+ *  Models: STIR is deterministic; pi_hash binds records via mroot;
+ *          worker self-verifies before sending.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+rule WorkerProves:
+    let
+      pk_C   = pk(skC)
+      fs     = fs_binding('shard_fs', pk_C, jobId, sid, nonce)
+      proof  = stir(records, fs)
+      mroot  = h(<'mroot', records>)
+      rootf0 = h(<'rootf0', proof>)
+      pi     = pi_hash_recipe('shard_pi', mroot, rootf0, fs, records)
+      d      = attest_digest('attest', sid, pi, mroot)
+      sigW   = sign(d, skW)
+    in
+    [ !WorkerLtk($W, skW),
+      !Pk($C, pk_C),
+      !Allow($C, $W),
+      In(senc(<'assign', jobId, sid, nonce, records, pk_C>, skC)) ]
+  --[ Proved($W, $C, jobId, sid, records, pi, mroot, rootf0, sigW) ]->
+    [ Out(senc(<'shard_done', $W, jobId, sid, pi, mroot, rootf0, sigW>, skW)),
+      St_WorkerProved($W, $C, jobId, sid, pi, mroot, rootf0, sigW) ]
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Phase 4–5 (ctrl side): merkle pinning + sig check + receipt minting
+ *  Models: A (merkle pinning catches substitution),
+ *          G (signed receipt evidence trail).
+ * ──────────────────────────────────────────────────────────────────────── */
+
+rule CtrlAcceptsAndMintsReceipt:
+    let
+      pk_C       = pk(skC)
+      fs         = fs_binding('shard_fs', pk_C, jobId, sid, nonce)
+      mroot_exp  = h(<'mroot', records>)        // pre-computed by ctrl
+      rootf0_w   = h(<'rootf0', stir(records, fs)>)
+      pi_exp     = pi_hash_recipe('shard_pi', mroot_exp, rootf0_w, fs, records)
+      d_exp      = attest_digest('attest', sid, pi_exp, mroot_exp)
+      e          = receipt_digest('ctrl_receipt', jobId, sid, $W, pi_exp, mroot_exp, ~ts)
+      sigC       = sign(e, skC)
+    in
+    [ !CtrlLtk($C, skC),
+      !Pk($W, pkW),
+      St_CtrlAssigned($C, $W, jobId, sid, nonce, records, pk_C),
+      In(senc(<'shard_done', $W, jobId, sid, pi_in, mroot_in, rootf0_in, sigW_in>, skW)),
+      Fr(~ts) ]
+  --[ Eq(pi_in, pi_exp),
+      Eq(mroot_in, mroot_exp),
+      Eq(rootf0_in, rootf0_w),
+      // sig check is via Tamarin's built-in `verify`:
+      Eq(verify(sigW_in, d_exp, pkW), true),
+      AcceptedShard($C, $W, jobId, sid, pi_exp, sigW_in),
+      MintedReceipt($C, $W, jobId, sid, pi_exp, sigC, ~ts) ]->
+    [ Out(senc(<'receipt', $C, jobId, sid, $W, pi_exp, mroot_exp, ~ts, sigC>, skC)),
+      St_CtrlAccepted($C, $W, jobId, sid, pi_exp) ]
+
+/* Witness role: same shape as ctrl receipt minting but no orchestration.
+ * Each witness has its own key V_j; receipts are independent attestations.
+ */
+rule WitnessReceivesAndMints:
+    let
+      pk_V       = pk(skV)
+      d_exp      = attest_digest('attest', sid, pi, mroot)
+      e          = receipt_digest('ctrl_receipt', jobId, sid, $W, pi, mroot, ~ts)
+      sigV       = sign(e, skV)
+    in
+    [ !WitnessLtk($V, skV),
+      !Pk($W, pkW),
+      In(senc(<'evidence', $W, jobId, sid, pi, mroot, rootf0, sigW_in>, skW)),
+      Fr(~ts) ]
+  --[ Eq(verify(sigW_in, d_exp, pkW), true),
+      WitnessReceipt($V, $W, jobId, sid, pi, sigV, ~ts) ]->
+    [ Out(senc(<'receipt', $V, jobId, sid, $W, pi, mroot, ~ts, sigV>, skV)) ]
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Phase 6: zone-digest sign
+ * ──────────────────────────────────────────────────────────────────────── */
+
+rule CtrlSignsZone:
+    let
+      pk_C    = pk(skC)
+      Z       = zone_digest('zone_auth', 'L1', $salt, $count, rootf0_outer, pk_C)
+      sigZ    = sign(Z, skC)
+    in
+    [ !CtrlLtk($C, skC) ]
+  --[ ZoneSigned($C, $salt, $count, rootf0_outer, sigZ) ]->
+    [ Out(<Z, sigZ, pk_C>) ]
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Adversary: standard Dolev-Yao with key compromise
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* The adversary may compromise a worker's secret key (this models a
+ * worker that has been bribed/hacked).  Once compromised, the adversary
+ * has full signing power for that worker.
+ */
+rule CompromiseWorker:
+    [ !WorkerLtk($W, skW) ]
+  --[ CompromisedWorker($W) ]->
+    [ Out(skW) ]
+
+/* The adversary may also compromise a witness; the M-of-N quorum
+ * threshold should make this insufficient unless ≥ M are taken.
+ */
+rule CompromiseWitness:
+    [ !WitnessLtk($V, skV) ]
+  --[ CompromisedWitness($V) ]->
+    [ Out(skV) ]
+
+/* The adversary may NOT compromise the primary's authority key in this
+ * theory (we want to prove that even if the primary is honest, the
+ * remaining defences hold); for the dual model where the primary is
+ * also corruptible, swap CtrlLtk for CompromisedCtrl below.
+ */
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Lemmas
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* Sanity: protocol traces exist, i.e. an honest run terminates with at
+ * least one accepted shard. */
+lemma protocol_executable:
+  exists-trace
+    "Ex C W jobId sid pi sig #i.
+       AcceptedShard(C, W, jobId, sid, pi, sig) @ i"
+
+/* ── Property 1 (\Cref{prop:authority}): authority binding ────────────── */
+/* A signed zone digest implies the controller's secret key was used
+ * (under the standard EUF-CMA assumption captured by Tamarin's signing
+ * theory). */
+lemma authority_binding:
+  "All C salt cnt rf0 sig #i.
+       ZoneSigned(C, salt, cnt, rf0, sig) @ i
+   ==> Ex skC #j. CtrlKey(C, skC) @ j & j < i"
+
+/* ── Property 2 (\Cref{prop:records}): record-set binding ────────────── */
+/* If ctrl accepts a shard with given pi, then some honest worker
+ * (or compromised worker) ran the prover on the records that ctrl
+ * pinned the merkle root for.  Substitution is impossible without
+ * recomputing pi over the substituted records. */
+lemma shard_inclusion:
+  "All C W jobId sid pi sig #i.
+       AcceptedShard(C, W, jobId, sid, pi, sig) @ i
+   ==> ( Ex records mroot rootf0 #j.
+            Proved(W, C, jobId, sid, records, pi, mroot, rootf0, sig) @ j
+            & j < i )"
+
+/* ── Property 3 (\Cref{prop:fresh}): replay freshness ─────────────────── */
+/* No two distinct (job_id, shard_id) pairs accept the same `pi` (the
+ * Fiat-Shamir tag includes both, so a proof for slot (j1, s1) is
+ * unusable in slot (j2, s2) unless j1 = j2 and s1 = s2). */
+lemma replay_freshness:
+  "All C1 W1 j1 s1 pi sig1 C2 W2 j2 s2 sig2 #t1 #t2.
+       AcceptedShard(C1, W1, j1, s1, pi, sig1) @ t1
+     & AcceptedShard(C2, W2, j2, s2, pi, sig2) @ t2
+   ==> ( j1 = j2 & s1 = s2 )"
+
+/* ── Property 4 (\Cref{prop:byzantine}): ensemble determinism ─────────── */
+/* If two HONEST workers prove the same (records, jobId, sid, nonce),
+ * they produce the same pi.  This is the property that makes the
+ * byte-equality majority-rule check sound. */
+lemma deterministic_proving:
+  "All W1 W2 C jobId sid records pi1 pi2 m1 m2 r1 r2 sig1 sig2 #t1 #t2.
+       Proved(W1, C, jobId, sid, records, pi1, m1, r1, sig1) @ t1
+     & Proved(W2, C, jobId, sid, records, pi2, m2, r2, sig2) @ t2
+     // both honest:
+     & not(Ex #c. CompromisedWorker(W1) @ c)
+     & not(Ex #c. CompromisedWorker(W2) @ c)
+   ==> pi1 = pi2"
+
+/* ── Property 5 (\Cref{prop:witness}): witness quorum censorship resistance ──── */
+/* If a verifier sees M distinct witness receipts for shard sid all
+ * agreeing on the same pi, then at least M distinct witness signing
+ * keys were used — i.e. the adversary needs to compromise ≥ M of the
+ * configured N witnesses to substitute the bundle's pi without
+ * detection.
+ *
+ * NOTE: stating M-of-N as a single first-order lemma is awkward in
+ * Tamarin; we encode it for M = 2 here (the case our smoke test
+ * exercised) and gesture at the general statement.
+ */
+lemma witness_quorum_2:
+  "All V1 V2 W1 W2 jobId sid pi s1 s2 t1 t2 #i1 #i2.
+       WitnessReceipt(V1, W1, jobId, sid, pi, s1, t1) @ i1
+     & WitnessReceipt(V2, W2, jobId, sid, pi, s2, t2) @ i2
+     & not(V1 = V2)
+   ==>   // each receipt's signature is over its witness's own key
+         ( Ex skV1 #k1. WitnessKey(V1, skV1) @ k1 & k1 < i1 )
+       & ( Ex skV2 #k2. WitnessKey(V2, skV2) @ k2 & k2 < i2 )"
+
+/* ── Property 6 (\Cref{prop:e1}): allowlist enforcement ──────────────── */
+/* No shard is ever accepted from a worker whose pk is not on the
+ * controller's allowlist. */
+lemma allowlist_enforced:
+  "All C W jobId sid pi sig #i.
+       AcceptedShard(C, W, jobId, sid, pi, sig) @ i
+   ==> Ex #a. Allowlisted(C, W) @ a & a < i"
+
+/* ────────────────────────────────────────────────────────────────────────
+ *  Restrictions
+ * ──────────────────────────────────────────────────────────────────────── */
+restriction equality:
+  "All x y #i. Eq(x, y) @ i ==> x = y"
+
+end

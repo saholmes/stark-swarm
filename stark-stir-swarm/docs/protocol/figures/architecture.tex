@@ -1,0 +1,87 @@
+% Architecture diagram for the STIR-DNS swarm protocol.
+% Standalone TikZ; included via \input from swarm-protocol.tex.
+
+\begin{tikzpicture}[
+    node distance = 8mm and 18mm,
+    every node/.style = {font=\footnotesize},
+    primary/.style = {
+        rectangle, rounded corners=3pt, draw=blue!60!black, very thick,
+        fill=blue!8, align=center,
+        minimum width=24mm, minimum height=11mm
+    },
+    witness/.style = {
+        rectangle, rounded corners=3pt, draw=teal!70!black, thick,
+        fill=teal!8, align=center,
+        minimum width=22mm, minimum height=10mm
+    },
+    worker/.style = {
+        rectangle, rounded corners=2pt, draw=orange!70!black, thick,
+        fill=orange!8, align=center,
+        minimum width=18mm, minimum height=8mm
+    },
+    verifier/.style = {
+        rectangle, rounded corners=3pt, draw=violet!60!black, thick,
+        fill=violet!7, align=center,
+        minimum width=24mm, minimum height=10mm
+    },
+    bundle/.style = {
+        cylinder, shape border rotate=90, draw=black!50, fill=black!5,
+        aspect=0.4, minimum width=12mm, minimum height=10mm,
+        align=center, font=\scriptsize
+    },
+    tls/.style    = {-Latex, thick, draw=blue!60!black},
+    evidence/.style = {-Latex, thick, draw=teal!70!black, dash pattern=on 5pt off 2pt},
+    audit/.style  = {-Latex, thick, draw=violet!60!black, dash pattern=on 2pt off 2pt}
+]
+
+% ── Controllers (top row) ─────────────────────────────────────────
+\node[primary] (ctrl) {Primary $\ctrl$ \\ \scriptsize ML-DSA $C$};
+\node[witness, right=24mm of ctrl] (witA) {Witness $V_1$ \\ \scriptsize ML-DSA $V_1$};
+\node[witness, right=8mm of witA]  (witB) {Witness $V_2$ \\ \scriptsize ML-DSA $V_2$};
+\node[witness, right=8mm of witB]  (witN) {Witness $V_N$ \\ \scriptsize ML-DSA $V_N$};
+\node[font=\large, between=witB and witN] at ($(witB)!0.5!(witN)$) {$\cdots$};
+
+% ── Workers (middle row) ──────────────────────────────────────────
+\node[worker, below=22mm of ctrl, xshift=-12mm] (w1) {$\worker_1$ \\ \scriptsize $\mathit{pk}_1 \in \mathcal{L}$};
+\node[worker, right=4mm of w1] (w2) {$\worker_2$};
+\node[worker, right=4mm of w2] (w3) {$\worker_3$};
+\node[worker, right=4mm of w3] (w4) {$\worker_4$};
+\node[worker, right=4mm of w4] (w5) {$\worker_5$};
+
+% ── Bundle + verifier (bottom) ────────────────────────────────────
+\node[bundle, below=22mm of w3] (bundle) {Zone bundle \\ + outer proof \\ $\sig{C}{Z}$};
+\node[verifier, right=18mm of bundle] (verifier) {Verifier};
+\node[bundle, left=12mm of bundle, fill=teal!5] (warchive) {Witness \\ archives \\ $R_{V_j,s,i}$};
+
+% ── Edges: TLS sessions worker→primary ───────────────────────────
+\foreach \w in {w1,w2,w3,w4,w5} {
+  \draw[tls] (\w) -- node[pos=0.55, sloped, above, font=\scriptsize] {} (ctrl);
+}
+
+% ── Edges: TLS sessions worker→witnesses ─────────────────────────
+\draw[evidence] (w1) -- (witA);
+\draw[evidence] (w2) -- (witA);
+\draw[evidence] (w3) -- (witB);
+\draw[evidence] (w4) -- (witB);
+\draw[evidence] (w5) -- (witN);
+\draw[evidence] (w1) -- (witN);
+
+% ── Bundle production / verifier audit ────────────────────────────
+\draw[-Latex, thick] (ctrl) -- node[right, font=\scriptsize] {publishes} (bundle);
+\foreach \v in {witA,witB,witN} {
+  \draw[-Latex, dashed, draw=teal!70!black]
+       (\v.south) to[bend right=20] node[font=\scriptsize, sloped, below] {} (warchive.north);
+}
+\draw[audit] (bundle.east) -- (verifier);
+\draw[audit] (warchive.east) -- (verifier);
+
+% ── Legend ────────────────────────────────────────────────────────
+\node[draw=black!30, fill=white, align=left, font=\scriptsize,
+      below=12mm of warchive, xshift=14mm,
+      rounded corners=2pt, inner sep=4pt] (legend) {
+  \tikz \draw[tls] (0,0) -- (8mm,0); \quad TLS 1.3 (X25519+ML-KEM-768 hybrid) — \msg{ShardDone} / \msg{AssignShard} \\
+  \tikz \draw[evidence] (0,0) -- (8mm,0); \quad TLS 1.3 — \msg{WorkerEvidence} fan-out \\
+  \tikz \draw[audit] (0,0) -- (8mm,0); \quad audit-time evidence flow
+};
+
+\end{tikzpicture}

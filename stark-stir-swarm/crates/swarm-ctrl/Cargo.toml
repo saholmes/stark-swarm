@@ -1,0 +1,29 @@
+[package]
+name = "swarm-ctrl"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Controller node for the STIR DNS swarm — accepts worker registrations and orchestrates proving"
+
+[[bin]]
+name = "swarm-ctrl"
+path = "src/main.rs"
+
+[dependencies]
+swarm-proto = { path = "../swarm-proto" }
+
+tokio        = { workspace = true }
+tokio-rustls = { workspace = true }
+rustls       = { workspace = true }
+clap         = { workspace = true }
+anyhow       = { workspace = true }
+tracing      = { workspace = true }
+tracing-subscriber = { workspace = true }
+hex          = "0.4"
+sha3         = { workspace = true }
+swarm-dns    = { path = "../swarm-dns" }
+fips204      = { workspace = true }
+serde        = { workspace = true, features = ["derive"] }
+serde_json   = { workspace = true }
+rand         = { workspace = true }
+ciborium     = { workspace = true }

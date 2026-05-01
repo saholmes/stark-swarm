@@ -1,0 +1,6 @@
+[2m2026-04-27T18:07:36.836705Z[0m [32m INFO[0m [2mswarm_worker[0m[2m:[0m worker identity ready [3mnode[0m[2m=[0medge-001-46775158 [3mscheme[0m[2m=[0m"ML-DSA-44" [3mpk_fp[0m[2m=[0m46775158109a18baffe6b1a29495656fdbe4d4584347a55531eb2747ad49b8f7
+[2m2026-04-27T18:07:36.836761Z[0m [32m INFO[0m [2mswarm_worker[0m[2m:[0m connecting to controller [3mctrl[0m[2m=[0m127.0.0.1:7911 [3msni[0m[2m=[0mlocalhost
+[2m2026-04-27T18:07:36.886197Z[0m [32m INFO[0m [2mswarm_worker[0m[2m:[0m registered with controller [3mworker_id[0m[2m=[0m1 [3mcontroller_label[0m[2m=[0mstir-swarm-ctrl
+[2m2026-04-27T18:07:36.887081Z[0m [32m INFO[0m [2mswarm_worker[0m[2m:[0m heartbeat checkpoint [3mworker_id[0m[2m=[0m1 [3mcontroller_label[0m[2m=[0mstir-swarm-ctrl [3muptime_s[0m[2m=[0m0 [3msent[0m[2m=[0m1 [3mshards_done[0m[2m=[0m0
+[2m2026-04-27T18:07:37.483598Z[0m [32m INFO[0m [2mswarm_worker[0m[2m:[0m shard proved + self-verified, returning result [3mworker_id[0m[2m=[0m1 [3mshard_id[0m[2m=[0m1 [3mrecords[0m[2m=[0m2048 [3mn_trace[0m[2m=[0m8192 [3mprove_ms[0m[2m=[0m472.004333 [3mproof_bytes[0m[2m=[0m176656
+[2m2026-04-27T18:07:37.607554Z[0m [32m INFO[0m [2mswarm_worker[0m[2m:[0m controller closed the connection

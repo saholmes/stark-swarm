@@ -1,0 +1,86 @@
+% Sequence diagram of one shard, one witness, k=1. Plain TikZ; no extra packages.
+
+\begin{tikzpicture}[
+    every node/.style={font=\footnotesize},
+    actor/.style={
+        rectangle, rounded corners=2pt, draw, very thick, fill=black!4,
+        minimum width=20mm, minimum height=7mm, align=center
+    },
+    msg/.style={-Latex, thick},
+    ret/.style={-Latex, thick, dashed},
+    note/.style={
+        rectangle, rounded corners=2pt, draw=black!30,
+        fill=yellow!8, font=\scriptsize\itshape, align=left, inner sep=3pt
+    }
+]
+
+% Lifeline columns
+\node[actor] (W) at (0, 0)   {$\worker$};
+\node[actor] (C) at (5.0, 0) {$\ctrl$};
+\node[actor] (V) at (9.0, 0) {$\witness$};
+
+% Lifelines (vertical lines)
+\foreach \n in {W,C,V} {
+  \draw[densely dotted, draw=black!50] (\n.south) -- ++(0,-13.5);
+}
+
+% y coordinates for events (top-down)
+\def\yA{-0.6}      % register
+\def\yB{-1.3}      % register-ack
+\def\yC{-2.0}      % register witness
+\def\yD{-2.7}      % witness-ack
+\def\yE{-3.6}      % AssignShard
+\def\yF{-4.6}      % prove + self-verify (note)
+\def\yG{-6.6}      % ShardDone
+\def\yH{-7.6}      % WorkerEvidence
+\def\yI{-8.6}      % Receipt from primary
+\def\yJ{-9.4}      % Receipt from witness
+\def\yK{-10.5}     % outer rollup + sign (note)
+\def\yL{-12.5}     % bundle published
+
+% ── Register flows ────────────────────────────────────────────
+\draw[msg] (W |- 0,\yA) -- node[above, font=\scriptsize] {\msg{Register}($\mathit{pk}_W$, caps)} (C |- 0,\yA);
+\draw[ret] (C |- 0,\yB) -- node[above, font=\scriptsize] {\msg{RegisterAck}($\mathit{worker\_id}$)} (W |- 0,\yB);
+\draw[msg] (W |- 0,\yC) -- node[above, font=\scriptsize] {\msg{Register}($\mathit{pk}_W$, caps)} (V |- 0,\yC);
+\draw[ret] (V |- 0,\yD) -- node[above, font=\scriptsize] {\msg{RegisterAck}} (W |- 0,\yD);
+
+% ── AssignShard ───────────────────────────────────────────────
+\draw[msg] (C |- 0,\yE) -- node[above, font=\scriptsize]
+       {\msg{AssignShard}$_s$ = $(s,\mathit{salt},\mathit{job\_id},\mathit{nonce}_s,\bar{r}_s)$} (W |- 0,\yE);
+
+% ── Compute / prove note ────────────────────────────────────
+\node[note, anchor=west] at (-1.2, \yF + 0.3) {%
+  $\mathit{fs}_s = H(\textsc{shard-fs-v1} \| \dots \| \mathit{nonce}_s)$ \\
+  $\pi_s \leftarrow \msg{StirProve}(\bar{r}_s, \textsf{params}[\textsf{pi\_hash} = \mathit{fs}_s])$ \\
+  self-verify: $\msg{StirVerify}(\pi_s) = \top$ \\
+  $\mathit{pi}_s = H(\textsc{shard-pi-v1} \| \dots \| \mathit{rootf0}(\pi_s) \| \mathit{fs}_s)$ \\
+  $d_s = H(\textsc{worker-attest-v1} \| s \| \mathit{pi}_s \| \mathsf{mroot} \| \mathit{rootf0})$ \\
+  $\sig{W}{d_s} \leftarrow \msg{ML-DSA.Sign}(W, d_s)$
+};
+
+% ── ShardDone to primary ──────────────────────────────────────
+\draw[msg] (W |- 0,\yG) -- node[above, font=\scriptsize]
+       {\msg{ShardDone}$_s$: $\bigl(\mathit{pi}_s,\mathsf{mroot},\mathit{rootf0},\mathsf{enc}(\pi_s),\sig{W}{d_s}\bigr)$} (C |- 0,\yG);
+
+% ── WorkerEvidence to witness (fan-out, parallel) ─────────────
+\draw[msg] (W |- 0,\yH) -- node[above, font=\scriptsize]
+       {\msg{WorkerEvidence}$_s$: $\bigl(s,\mathit{pi}_s,\mathsf{mroot},\mathit{rootf0},\sig{W}{d_s}\bigr)$} (V |- 0,\yH);
+
+% ── Primary's receipt back ────────────────────────────────────
+\draw[ret] (C |- 0,\yI) -- node[above, font=\scriptsize]
+       {\msg{Receipt}: $R_{C,s,i}$ inc.\ $\sig{C}{e_{C,s,i}}$} (W |- 0,\yI);
+% ── Witness receipt back ──────────────────────────────────────
+\draw[ret] (V |- 0,\yJ) -- node[above, font=\scriptsize]
+       {\msg{Receipt}: $R_{V,s,i}$ inc.\ $\sig{V}{e_{V,s,i}}$} (W |- 0,\yJ);
+
+% ── Outer + sign note ────────────────────────────────────────
+\node[note, anchor=west] at (3.0, \yK + 0.5) {%
+  Outer rollup $\pi_{\text{outer}}$ over $\mathit{pi}_1, \dots, \mathit{pi}_n$ \\
+  $Z = H_{\textsf{level}}(\textsc{zone-auth-v1} \| \dots \| \mathit{rootf0}(\pi_{\text{outer}}) \| H(\mathit{pk}_C))$ \\
+  $\sig{C}{Z} \leftarrow \msg{ML-DSA.Sign}(C, Z)$ \\
+  Bundle $:= (\textsf{meta}, \mathit{pk}_C, \pi_{\text{outer}}, \{\textsf{shards}\}, Z, \sig{C}{Z})$
+};
+
+\node[anchor=west, font=\scriptsize\itshape] at (1.0, \yL) {bundle published; verifier audits offline (\Cref{sec:verify})};
+
+\end{tikzpicture}

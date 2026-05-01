@@ -1,0 +1,80 @@
+% Sequence diagram of a k=3 byzantine ensemble: two honest replicas
+% return identical (pi, mroot, root_f0); one byzantine replica returns
+% a divergent claim. Majority rule accepts the honest pair, blacklists
+% the dissenter.
+
+\begin{tikzpicture}[
+    every node/.style={font=\footnotesize},
+    actor/.style={
+        rectangle, rounded corners=2pt, draw, very thick, fill=black!4,
+        minimum width=18mm, minimum height=7mm, align=center
+    },
+    byzactor/.style={
+        rectangle, rounded corners=2pt, draw=red!70!black, very thick,
+        fill=red!8, minimum width=18mm, minimum height=7mm, align=center
+    },
+    msg/.style={-Latex, thick},
+    badmsg/.style={-Latex, thick, draw=red!70!black},
+    note/.style={
+        rectangle, rounded corners=2pt, draw=black!30, fill=yellow!8,
+        font=\scriptsize\itshape, align=left, inner sep=3pt
+    }
+]
+
+% Lifelines
+\node[actor]    (W1) at (0,    0) {$\worker_1$ \\ (honest)};
+\node[actor]    (W2) at (3.0,  0) {$\worker_2$ \\ (honest)};
+\node[byzactor] (W3) at (6.0,  0) {$\worker_3$ \\ \textbf{byzantine}};
+\node[actor]    (C)  at (10.5, 0) {$\ctrl$};
+
+\foreach \n in {W1,W2,W3,C} {
+  \draw[densely dotted, draw=black!50] (\n.south) -- ++(0,-13);
+}
+
+% y coords
+\def\yA{-0.7}    % AssignShard fan-out (3 arrows)
+\def\yB{-2.2}    % prove note
+\def\yC{-4.5}    % ShardDone honest 1
+\def\yD{-5.4}    % ShardDone honest 2
+\def\yE{-6.4}    % ShardDone byzantine
+\def\yF{-7.5}    % ensemble note
+\def\yG{-9.5}    % accept + blacklist arrow
+\def\yH{-10.4}
+
+% ── AssignShard: same spec to all 3 workers ─────────────────
+\draw[msg] (C |- 0,\yA) -- node[above, font=\scriptsize] {\msg{AssignShard}$_s$, $\mathit{nonce}_s$ shared} (W3 |- 0,\yA);
+\draw[msg] (C |- 0,\yA + 0.18) -- (W2 |- 0,\yA + 0.18);
+\draw[msg] (C |- 0,\yA + 0.36) -- (W1 |- 0,\yA + 0.36);
+
+% ── Honest provers: identical computation ───────────────────
+\node[note, anchor=west] at (-1.0, \yB + 0.3) {%
+  Honest provers ($W_1$, $W_2$): same $(\bar{r}_s, \mathit{salt}, \mathit{fs}_s)$ \\
+  $\Rightarrow$ STIR is deterministic $\Rightarrow$ \\
+  byte-identical $(\pi_s, \mathsf{mroot}, \mathit{rootf0}, \mathit{pi}_s)$
+};
+
+% ── Byzantine prover: claims a different output (perhaps re-uses an
+%    old proof, or invents a wrong claim) ────────────────────
+\node[note, anchor=west, fill=red!7, draw=red!50] at (5.4, \yB + 0.3) {%
+  $W_3$ returns $(\mathit{pi}'_s, \mathsf{mroot}', \dots) \ne$ honest pair
+};
+
+% ── ShardDone responses ─────────────────────────────────────
+\draw[msg]    (W1 |- 0,\yC) -- node[above, font=\scriptsize] {\msg{ShardDone}: $(\mathit{pi}_s, \mathsf{mroot}, \mathit{rootf0}, \sig{W_1}{d_s})$} (C |- 0,\yC);
+\draw[msg]    (W2 |- 0,\yD) -- node[above, font=\scriptsize] {\msg{ShardDone}: $(\mathit{pi}_s, \mathsf{mroot}, \mathit{rootf0}, \sig{W_2}{d_s})$} (C |- 0,\yD);
+\draw[badmsg] (W3 |- 0,\yE) -- node[above, font=\scriptsize, draw=none, fill=red!5] {\msg{ShardDone}: $(\mathit{pi}'_s, \dots, \sig{W_3}{d'_s})$} (C |- 0,\yE);
+
+% ── Ctrl ensemble logic ─────────────────────────────────────
+\node[note, anchor=west] at (1.0, \yF + 0.3) {%
+  Ctrl partitions $\{(\mathit{pi}_{W_1}), (\mathit{pi}_{W_2}), (\mathit{pi}_{W_3})\}$ by byte equality. \\
+  Buckets: $\{W_1, W_2\}$ (size 2) and $\{W_3\}$ (size 1). \\
+  Largest bucket size $2 > k/2 = 1.5$ $\Rightarrow$ \texttt{MajorityWin}. \\
+  $W_1, W_2$ accepted (both attestations recorded); $W_3$ blacklisted + removed.
+};
+
+% ── Outcome arrows ──────────────────────────────────────────
+\draw[-Latex, thick, draw=green!50!black] (C |- 0,\yG) -- node[above, font=\scriptsize] {(internal: bundle records 2 attestations)} (W1 |- 0,\yG);
+\draw[-Latex, thick, draw=green!50!black] (C |- 0,\yG + 0.18) -- (W2 |- 0,\yG + 0.18);
+\draw[-Latex, thick, draw=red!70!black, dashed] (C |- 0,\yH) -- node[above, font=\scriptsize, draw=none] {blacklist + drop session} (W3 |- 0,\yH);
+
+\end{tikzpicture}

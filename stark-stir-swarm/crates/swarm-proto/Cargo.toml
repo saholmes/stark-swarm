@@ -1,0 +1,22 @@
+[package]
+name = "swarm-proto"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Wire protocol + post-quantum TLS layer for the STIR DNS swarm"
+
+[dependencies]
+serde               = { workspace = true }
+ciborium            = { workspace = true }
+tokio               = { workspace = true }
+tokio-rustls        = { workspace = true }
+rustls              = { workspace = true }
+rustls-post-quantum = { workspace = true }
+rustls-pemfile      = { workspace = true }
+rcgen               = { workspace = true }
+anyhow              = { workspace = true }
+thiserror           = { workspace = true }
+tracing             = { workspace = true }
+sha3                = { workspace = true }
+hex                 = "0.4"
+swarm-dns           = { path = "../swarm-dns" }

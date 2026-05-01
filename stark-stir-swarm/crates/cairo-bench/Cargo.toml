@@ -1,0 +1,41 @@
+[package]
+name = "cairo-bench"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Criterion benchmarks for all Cairo AIR workloads on the STARK/DEEP-ALI/FRI prover"
+
+[features]
+default  = ["sha3-256", "parallel"]
+sha3-256 = ["deep_ali/sha3-256"]
+parallel = ["deep_ali/parallel"]
+# Optional Poseidon-accelerated leaf compression (paper dual-hash).
+poseidon-accel = ["deep_ali/poseidon-accel"]
+# Enable to run real Cairo 0 programs via the LambdaClass cairo-vm crate.
+# Requires: cargo add cairo-vm (or add below), plus cairo-compile to build .json programs.
+cairo-vm-trace = ["dep:cairo-vm"]
+
+[dependencies]
+ark-ff = { workspace = true }
+ark-goldilocks = { workspace = true }
+ark-poly = { workspace = true }
+rand = { workspace = true }
+rayon = "1.10"
+sha3 = { workspace = true }
+hex = "0.4"
+fips204 = { workspace = true }
+
+deep_ali    = { path = "../deep_ali" }
+hash        = { path = "../hash",       default-features = false }
+merkle      = { path = "../merkle",     default-features = false }
+transcript  = { path = "../transcript", default-features = false }
+
+# Real Cairo 0 VM trace extraction (optional).
+cairo-vm = { version = "1", features = ["std", "cairo-1-hints"], optional = true }
+
+[dev-dependencies]
+criterion = { workspace = true }
+
+[[bench]]
+name = "cairo_air_bench"
+harness = false

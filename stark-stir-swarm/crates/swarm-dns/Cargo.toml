@@ -1,0 +1,42 @@
+[package]
+name = "swarm-dns"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "DNS-rollup record helpers, authority signing layer, and the megazone demo for the STIR swarm"
+
+[features]
+default  = ["sha3-256", "parallel"]
+sha3-256 = ["deep_ali/sha3-256"]
+parallel = ["deep_ali/parallel"]
+
+[dependencies]
+ark-ff         = { workspace = true }
+ark-goldilocks = { workspace = true }
+ark-serialize  = { workspace = true }
+rand           = { workspace = true }
+rayon          = "1.10"
+sha3           = { workspace = true }
+hex            = "0.4"
+fips204        = { workspace = true }
+serde          = { workspace = true, features = ["derive"] }
+
+deep_ali    = { path = "../deep_ali" }
+cairo-bench = { path = "../cairo-bench" }   # for AirType::HashRollup + trace builders
+hash        = { path = "../hash",       default-features = false }
+merkle      = { path = "../merkle",     default-features = false }
+transcript  = { path = "../transcript", default-features = false }
+
+[dev-dependencies]
+sha2          = "0.10"
+# Per-thread heap allocator for the K=256 STARK calibration example.
+# macOS's libsystem_malloc serialises threads on a global lock for
+# medium-sized (~600 KB) allocations like the per-iteration cvals
+# Vec<F> in deep_ali_merge_ed25519_verify; mimalloc has per-thread
+# heaps and removes that contention.  Used only via #[global_allocator]
+# in the calibration example, not on the production verifier path.
+mimalloc      = "0.1"
+# Used by examples/zsk_ksk_bench for synthetic key/signature generation
+# and as a runtime baseline.  Not on the runtime verification path —
+# `verify_zsk_ksk_runtime_fallback` uses only `deep_ali`.
+ed25519-dalek = { version = "2.1", features = ["rand_core"] }

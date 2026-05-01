@@ -1,0 +1,719 @@
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/convert.rs","timestamp":1777191864280,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777191888309,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/stark-server/Cargo.toml","timestamp":1777191912969,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/benches/cairo_air_bench.rs","timestamp":1777193006376,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/security.rs","timestamp":1777194047612,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777194053360,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/convert.rs","timestamp":1777194101790,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/lib.rs","timestamp":1777194105995,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/lib.rs","timestamp":1777194108676,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/types.rs","timestamp":1777194118381,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777194132941,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/mod.rs","timestamp":1777194138252,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/security.rs","timestamp":1777194149624,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777194202346,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/verify.rs","timestamp":1777194224155,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777195603849,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777195617464,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777195631994,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777195639885,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777195645309,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/types.rs","timestamp":1777195653900,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/types.rs","timestamp":1777195661127,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/types.rs","timestamp":1777195669058,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777195677250,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777195688555,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777195695222,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/lib.rs","timestamp":1777195699101,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/verify.rs","timestamp":1777195736377,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777195788685,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777196111330,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/level5_q65_e2e.rs","timestamp":1777196146317,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777196153634,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777196362819,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/level1_q40_smoke.rs","timestamp":1777196435468,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777196476110,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/level5_q65_e2e.rs","timestamp":1777196547653,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/level5_q65_e2e.rs","timestamp":1777196600690,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/examples/verify_split.rs","timestamp":1777196723391,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/api-walkthrough.md","timestamp":1777197108145,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/air_workloads.rs","timestamp":1777197355110,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/air_workloads.rs","timestamp":1777197359718,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/air_workloads.rs","timestamp":1777197363514,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/air_workloads.rs","timestamp":1777197367699,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/air_workloads.rs","timestamp":1777197370405,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/air_workloads.rs","timestamp":1777197397271,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/types.rs","timestamp":1777197408584,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777197411320,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777197414649,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/air_workloads.rs","timestamp":1777197458265,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197517538,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197560174,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197567455,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197572041,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197577000,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197601692,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197609280,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/rollup_demo.rs","timestamp":1777197630061,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/cairo/hash_rollup.cairo","timestamp":1777197656169,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/recursion-demo.md","timestamp":1777197737266,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777198042290,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/dns_rollup.rs","timestamp":1777198149907,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/cairo/dns_record_chain.cairo","timestamp":1777198184905,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/dns-rollup-demo.md","timestamp":1777198236751,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/tests/dns_rollup.rs","timestamp":1777198801040,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/dns-rollup-demo.md","timestamp":1777198894126,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/examples/hash_rollup_scale.rs","timestamp":1777199329579,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/Cargo.toml","timestamp":1777199345518,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/Cargo.toml","timestamp":1777199348527,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/scaling-analysis.md","timestamp":1777200521552,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/src/dns.rs","timestamp":1777200947962,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/src/lib.rs","timestamp":1777200952275,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777201038195,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/Cargo.toml","timestamp":1777201044904,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/dns-rollup-demo.md","timestamp":1777202069042,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/dns-rollup-demo.md","timestamp":1777202089737,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/dns-rollup-demo.md","timestamp":1777202117365,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777202833360,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777202834094,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777202846218,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/cryptographic-architecture.md","timestamp":1777202970415,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/merkle/src/lib.rs","timestamp":1777204134515,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/merkle/Cargo.toml","timestamp":1777204147400,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/Cargo.toml","timestamp":1777204158508,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777204160713,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/Cargo.toml","timestamp":1777204163356,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/poseidon-accel-measurement.csv","timestamp":1777206687928,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/cryptographic-architecture.md","timestamp":1777206742878,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/scaling-analysis.md","timestamp":1777206755165,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/api-walkthrough.md","timestamp":1777206763693,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/Cargo.toml","timestamp":1777221702308,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/proof-store/src/lib.rs","timestamp":1777221735333,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/Cargo.toml","timestamp":1777221766922,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/Cargo.toml","timestamp":1777221816695,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/examples/hash_rollup_scale.rs","timestamp":1777221820917,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/examples/hash_rollup_scale.rs","timestamp":1777221829812,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/examples/hash_rollup_scale.rs","timestamp":1777221832434,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/proof-encoding.md","timestamp":1777222070733,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/scaling-analysis.md","timestamp":1777222084533,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777222272458,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/examples/hash_rollup_scale.rs","timestamp":1777222274026,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777222277063,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/cairo-bench/benches/cairo_air_bench.rs","timestamp":1777222277402,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/scaling-analysis.md","timestamp":1777222470668,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/scaling-analysis.md","timestamp":1777222490754,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/scaling-analysis.md","timestamp":1777222528448,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/security.rs","timestamp":1777222892654,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/security.rs","timestamp":1777222904226,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/security.rs","timestamp":1777222926431,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777222949870,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/prove.rs","timestamp":1777222951639,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/security.rs","timestamp":1777222967376,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/security.rs","timestamp":1777222972697,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/security.rs","timestamp":1777222998084,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/r-per-blowup.md","timestamp":1777223068528,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/scaling-analysis.md","timestamp":1777223073298,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/auth/Cargo.toml","timestamp":1777224214464,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/auth/src/lib.rs","timestamp":1777224283865,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/Cargo.toml","timestamp":1777224291346,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777224322605,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/auth_middleware.rs","timestamp":1777224339598,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/oauth.rs","timestamp":1777224375193,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/admin.rs","timestamp":1777224422342,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/lib.rs","timestamp":1777224452769,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/mod.rs","timestamp":1777224452832,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/stark-server/src/main.rs","timestamp":1777224492305,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/stark-server/Cargo.toml","timestamp":1777224492635,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777224520790,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/Cargo.toml","timestamp":1777224528548,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/lib.rs","timestamp":1777224571147,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/oauth2-auth.md","timestamp":1777224944527,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/auth/src/lib.rs","timestamp":1777225676107,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/auth/src/lib.rs","timestamp":1777225692644,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/auth/src/lib.rs","timestamp":1777225709231,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/swarm.rs","timestamp":1777225768117,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/mod.rs","timestamp":1777225775825,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/lib.rs","timestamp":1777225780829,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/admin.rs","timestamp":1777225789033,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/admin.rs","timestamp":1777225791288,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/admin.rs","timestamp":1777225799359,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/admin.rs","timestamp":1777225804806,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/routes/admin.rs","timestamp":1777225819295,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/api/src/lib.rs","timestamp":1777225821910,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/swarm-prover.md","timestamp":1777225931100,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/streaming.rs","timestamp":1777226323719,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/lib.rs","timestamp":1777226324524,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/streaming.rs","timestamp":1777226473041,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/crates/deep_ali/src/streaming.rs","timestamp":1777226481572,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/claude-test/stark-stir-fips/stark-stir-fips-security/docs/iot-memory-bounded-prover.md","timestamp":1777226572466,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/Cargo.toml","timestamp":1777304965817,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/Cargo.toml","timestamp":1777304973188,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/src/dns_authority.rs","timestamp":1777305062995,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/src/lib.rs","timestamp":1777305079511,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305092673,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305106420,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305115430,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305138757,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305149381,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305159334,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305179922,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305188716,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305195066,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305217185,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305729425,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305732855,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305750625,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305754816,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305794211,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305918005,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305928986,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305934526,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305955140,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305960859,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305970930,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305978868,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305983233,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-service/stark-stir-fips-security/crates/cairo-bench/examples/dns_megazone_demo.rs","timestamp":1777305988082,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777306810552,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/cairo-bench/Cargo.toml","timestamp":1777306869184,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/Cargo.toml","timestamp":1777306932104,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/lib.rs","timestamp":1777306938747,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777306943616,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/cairo-bench/src/lib.rs","timestamp":1777306958692,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_megazone_demo.rs","timestamp":1777306975679,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777307343521,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777307352100,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/Cargo.toml","timestamp":1777307362795,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/lib.rs","timestamp":1777307370937,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777307384780,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/frame.rs","timestamp":1777307398968,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/cert.rs","timestamp":1777307421083,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/tls.rs","timestamp":1777307448609,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777307454779,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/Cargo.toml","timestamp":1777307719834,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777307758346,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/Cargo.toml","timestamp":1777307763901,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777307799723,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777307804410,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/Cargo.toml","timestamp":1777307849894,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/Cargo.toml","timestamp":1777307854353,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777307862167,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777307865505,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/Cargo.toml","timestamp":1777308172847,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/dns.rs","timestamp":1777308181168,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777308222942,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/lib.rs","timestamp":1777308226803,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/Cargo.toml","timestamp":1777308233002,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777308239605,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777308269962,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777308277087,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777308301784,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/dns_authority.rs","timestamp":1777308343749,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777308358030,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/Cargo.toml","timestamp":1777308375941,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777308385060,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777308391882,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777308399156,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777308405673,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777308414839,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777308461711,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/Cargo.toml","timestamp":1777308466726,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777312871165,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777313005609,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/Cargo.toml","timestamp":1777313010725,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-bench/Cargo.toml","timestamp":1777313139276,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-bench/src/main.rs","timestamp":1777313203425,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777313209518,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/tower_field.rs","timestamp":1777313451050,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/tower_field.rs","timestamp":1777313456366,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/merkle/src/lib.rs","timestamp":1777313467586,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/fri.rs","timestamp":1777313482985,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/merkle/src/lib.rs","timestamp":1777313507783,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/fri.rs","timestamp":1777313515362,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/quad_ext.rs","timestamp":1777313540752,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/cubic_ext.rs","timestamp":1777313550010,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sextic_ext.rs","timestamp":1777313558876,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/cubic_ext.rs","timestamp":1777317106622,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/quad_ext.rs","timestamp":1777317110474,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sextic_ext.rs","timestamp":1777317118187,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777317148462,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317156990,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317165943,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317172398,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317181274,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317187409,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777317196839,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777317212907,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777317219303,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777317228445,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777317238980,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777317248975,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317264480,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317279386,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317291546,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777317309220,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/Cargo.toml","timestamp":1777317321849,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/Cargo.toml","timestamp":1777317344157,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777317418049,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777317427414,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777317433657,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/Cargo.toml","timestamp":1777317438121,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777317603152,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777317610403,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777318607321,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777318615622,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777318628792,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777318647260,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777318652106,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777318660957,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318699126,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318705086,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318711321,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318764605,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318769307,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318775229,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318796256,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318807360,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318820442,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318827161,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777318836242,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/Cargo.toml","timestamp":1777318848880,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777318878328,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777318883118,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777318889431,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777318896993,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777318916137,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/Cargo.toml","timestamp":1777318933778,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777319301979,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777319316997,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777319326070,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777319343618,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319359748,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319370968,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319380026,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319393913,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319808049,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319814038,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319818180,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319865088,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319961268,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319979855,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319990435,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777319997165,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320007551,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320039263,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320045595,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320053291,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320073627,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777320350934,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777320358829,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320381025,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320396616,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320403020,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777320426877,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777320455928,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777320466358,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/Cargo.toml","timestamp":1777320470385,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/Cargo.toml","timestamp":1777320491168,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320495589,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320504116,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320545783,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777320560406,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-proto/src/messages.rs","timestamp":1777320943821,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320953204,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320960805,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320974523,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320980345,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320985875,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777320995104,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777321003102,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777321033957,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/Cargo.toml","timestamp":1777321044825,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777321074913,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777321132677,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777321180657,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-worker/src/main.rs","timestamp":1777321203297,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777321231587,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777321239981,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777321265985,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777321346983,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777321513554,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777321530629,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777321538658,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777321551791,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777322111039,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/figures/architecture.tex","timestamp":1777322145737,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/figures/sequence-happy.tex","timestamp":1777322179187,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/figures/sequence-byzantine.tex","timestamp":1777322208516,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/security/swarm.spthy","timestamp":1777322296678,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/Makefile","timestamp":1777322322240,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/README.md","timestamp":1777322353283,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777362599152,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777362636584,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/nsec3_completeness_bench.rs","timestamp":1777362710983,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777362969972,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777362980770,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777362991279,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/README.md","timestamp":1777363006541,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777363289022,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777363307637,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777363313075,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777363354812,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777363377896,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777363390314,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-ctrl/src/main.rs","timestamp":1777363399877,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777363430790,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777363463993,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/Cargo.toml","timestamp":1777363469103,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777397803305,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398257886,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398313211,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398326684,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398335180,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398372417,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398380019,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398394839,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398399904,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398410555,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398432737,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398447134,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398460391,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398471650,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398488123,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398491409,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398536744,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777398578765,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777398652200,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777398659676,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777398665212,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777398669287,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777398673684,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777398695188,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777398737824,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777398826290,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777398855654,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777398897775,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777398934143,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/Cargo.toml","timestamp":1777398949169,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777399254293,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777399386891,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777399390852,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha256_air.rs","timestamp":1777399483006,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777399566277,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777399601452,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/ds_ksk_bench.rs","timestamp":1777399672744,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777399745095,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777399763063,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777399775863,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777451143830,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777452327912,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777452485482,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777452527733,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777452874369,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777452886337,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777452900964,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777453012736,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777453046172,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777453085367,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/sha512_air.rs","timestamp":1777453340437,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/Cargo.toml","timestamp":1777453520116,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777453704631,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777453709450,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777453819423,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777453830615,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777453846972,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777453950130,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777455325549,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777455400614,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777455639665,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field.rs","timestamp":1777455665771,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777456147988,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777456160140,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777456405710,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777456467502,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777456489940,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777456720196,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777456752970,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777456904122,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777457189801,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777457203232,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777457211789,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777457225000,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777457309333,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777457955519,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777457993589,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777458341620,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777458502553,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777458552765,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777458566214,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777458583847,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777458964636,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777459287298,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777459323165,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777459394575,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777459429126,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_field_air.rs","timestamp":1777459450897,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group.rs","timestamp":1777459667742,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777459674083,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group.rs","timestamp":1777459707975,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777459988139,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777459995812,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460069505,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460075314,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460239442,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460387289,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460408426,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460547730,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460590102,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777460624028,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_scalar_mult_air.rs","timestamp":1777460858679,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777460865810,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_scalar_mult_air.rs","timestamp":1777460913389,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_scalar_mult_air.rs","timestamp":1777460921609,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777461171689,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777461178231,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777461199794,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777461250646,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/Cargo.toml","timestamp":1777461296084,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_scalar.rs","timestamp":1777461562819,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777461570129,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777461604490,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/Cargo.toml","timestamp":1777461612806,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777464250391,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777464578551,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777464607409,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/zsk_ksk_bench.rs","timestamp":1777467951511,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/Cargo.toml","timestamp":1777467974412,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777468169674,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777468196959,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777469555106,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777470391579,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777470537588,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777470587253,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777470638072,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_scalar_air.rs","timestamp":1777470992309,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777471000599,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_scalar_air.rs","timestamp":1777471138443,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_scalar_air.rs","timestamp":1777471232654,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777471401084,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777471457111,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group_air.rs","timestamp":1777471482818,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group.rs","timestamp":1777472077795,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777472089667,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777472101032,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group.rs","timestamp":1777472111859,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group.rs","timestamp":1777472510831,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group.rs","timestamp":1777472547386,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify.rs","timestamp":1777472559927,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_group.rs","timestamp":1777472584775,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777472938594,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777473126687,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777475196824,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777475598092,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777475631064,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777475807151,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777475867515,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777475908662,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777475942035,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777476154606,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777476228945,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777476254909,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777476498579,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777476523948,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777476836476,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777476861150,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477082332,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477107049,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477331530,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477364635,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477422792,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477439257,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477462583,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777477991915,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777478051261,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777478085154,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777478413763,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777478500781,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777478536151,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777478955571,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777478984722,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479188506,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479220006,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479413165,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479434842,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479551112,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479614352,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479643436,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479789260,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479875609,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777479900745,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777480131958,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777480154554,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777487828517,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777487861267,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/ed25519_verify_air.rs","timestamp":1777488081783,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488354451,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488362610,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488369716,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488376122,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488383187,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488426299,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488506762,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/air_workloads.rs","timestamp":1777488515902,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777498242389,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777498277565,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777498375704,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777498400992,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777498414294,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777498928326,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-verify/src/main.rs","timestamp":1777498968913,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/zsk_ksk_bench.rs","timestamp":1777499135525,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/zsk_ksk_bench.rs","timestamp":1777499161649,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/zsk_ksk_bench.rs","timestamp":1777499183929,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777499307590,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/protocol/swarm-protocol.tex","timestamp":1777499328252,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/docs/dns-rollup-demo.md","timestamp":1777499431163,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777500101077,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777500118594,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777500179095,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777500206034,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501078299,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501161070,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501213813,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501734049,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501776995,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501878780,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501925567,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501930278,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501934888,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777501940210,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_chain_bench.rs","timestamp":1777502487926,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777503514000,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777503580865,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/src/prover.rs","timestamp":1777503624819,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_chain_bench.rs","timestamp":1777503771558,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_chain_bench.rs","timestamp":1777503813298,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_chain_bench.rs","timestamp":1777505183821,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_chain_bench.rs","timestamp":1777505204554,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_stark_k256_calibration.rs","timestamp":1777505419073,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777531893261,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777531903907,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/deep_ali/src/lib.rs","timestamp":1777533648465,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/Cargo.toml","timestamp":1777535819189,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_stark_k256_calibration.rs","timestamp":1777535830254,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal 1/Documents/stark-stir-swarm/crates/swarm-dns/examples/dns_record_stark_k256_calibration.rs","timestamp":1777535853832,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539842853,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539862114,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539891618,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539907871,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539918766,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539933853,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539962724,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777539993587,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777540011550,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777542311067,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777542589236,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777543938875,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777543980532,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544018871,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544039033,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544054840,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544096925,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544139546,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544763523,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544775524,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544790459,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544800936,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544815152,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544826946,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544923660,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544944800,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544967335,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777544978024,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545019164,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545869709,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545884048,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545903116,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545916777,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545925411,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545944845,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545954124,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545971788,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777545984319,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777546567455,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777546581469,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777546596450,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777546617588,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777546633415,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777546650316,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547119001,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547138364,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547460290,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547479874,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547498970,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547507651,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547527936,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547545683,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547569109,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547590993,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547608296,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547613397,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547625988,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547655133,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547664700,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547704309,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547725707,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777547746498,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548573670,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548581420,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548586673,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548604246,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548621805,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548891572,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548904805,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548908169,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548912218,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548927581,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548945711,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548959138,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548975181,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777548995110,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549015453,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549031350,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549041916,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549058128,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549066798,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549084037,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549113884,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549121319,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549132143,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549146550,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549158818,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549178954,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549204064,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549575787,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549604391,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777549632006,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777550395281,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777550409830,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777550424043,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777550441339,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777550450016,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777550484982,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777550499383,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777555412666,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777555427350,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777555438599,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777555476012,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777555492864,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777555508011,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777555529213,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777561954656,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777562376817,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777562716743,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777565504515,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777565722403,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777565878989,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777565899073,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777566011120,"sessionId":null}
+{"type":"edit","file":"/Volumes/SAHexternal/Downloads/main-22.tex","timestamp":1777566022173,"sessionId":null}

@@ -1,0 +1,15 @@
+[2m2026-04-27T18:07:34.805660Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m listening on 127.0.0.1:7910
+[2m2026-04-27T18:07:34.805694Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m certificate fingerprint (SHA3-256) = ed291f0150c465a514f32c53d0dc02e460d9a3d6715881a933d50a03c0cc1f98
+[2m2026-04-27T18:07:34.805703Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m workers should connect with: --ctrl 127.0.0.1:7910 --ctrl-fingerprint ed291f0150c465a514f32c53d0dc02e460d9a3d6715881a933d50a03c0cc1f98
+[2m2026-04-27T18:07:34.805775Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m zone job ready, waiting for workers [3mwait_workers[0m[2m=[0m1 [3mzone_records[0m[2m=[0m4096 [3mldt[0m[2m=[0m"STIR" [3mnist_level[0m[2m=[0m1
+[2m2026-04-27T18:07:34.806933Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m roster: 0 workers
+[2m2026-04-27T18:07:34.967079Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m worker registered [3mworker_id[0m[2m=[0m1 [3mpeer[0m[2m=[0m127.0.0.1:49797 [3mnode[0m[2m=[0medge-001-9aaa7b71 [3mpk_fp[0m[2m=[0m9aaa7b71828a140d2cef7ed9818109ac455f0897e020c083fd0863dab3224689 [3mlevel[0m[2m=[0m1 [3mcores[0m[2m=[0m10
+[2m2026-04-27T18:07:34.967103Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m worker quorum reached [3mwait_workers_ms[0m[2m=[0m161.33025
+[2m2026-04-27T18:07:34.967717Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m zone composed and split [3mn_shards[0m[2m=[0m1 [3mtotal_records[0m[2m=[0m4096
+[2m2026-04-27T18:07:34.967807Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m shard assigned [3mworker_id[0m[2m=[0m1 [3mshard_id[0m[2m=[0m1 [3mrecords[0m[2m=[0m4096
+[2m2026-04-27T18:07:36.110732Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m shard accepted [3mworker_id[0m[2m=[0m1 [3mshard_id[0m[2m=[0m1 [3mrecords[0m[2m=[0m4096 [3mprove_ms[0m[2m=[0m890.207583 [3mpi_hash[0m[2m=[0maff371f044cfc5b415d3e91b3003929c175a3fe9ffa91867c9d9e39339168725
+[2m2026-04-27T18:07:36.110751Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m all inner shards collected [3massign_to_last_done_ms[0m[2m=[0m1143.023375
+[2m2026-04-27T18:07:36.112309Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m outer rollup proved + self-verified [3mouter_n_trace[0m[2m=[0m8 [3mouter_prove_ms[0m[2m=[0m0.9931670000000001 [3mouter_self_verify_ms[0m[2m=[0m0.42008300000000004 [3mouter_proof_bytes[0m[2m=[0m86896
+[2m2026-04-27T18:07:36.112461Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m authority signature produced + self-verified [3msig_ok[0m[2m=[0mtrue
+[2m2026-04-27T18:07:36.112650Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m zone bundle written [3mpath[0m[2m=[0m./bench-runs/run-001-port-7910/zone_bundle.json
+[2m2026-04-27T18:07:36.112654Z[0m [32m INFO[0m [2mswarm_ctrl[0m[2m:[0m ZONE JOB COMPLETE [3mtotal_ms[0m[2m=[0m1306.687041 [3mwait_ms[0m[2m=[0m161.33025 [3mprove_inner_ms[0m[2m=[0m1143.023375 [3mprove_outer_ms[0m[2m=[0m1.551958 [3msign_ms[0m[2m=[0m0.10225000000000001

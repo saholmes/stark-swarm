@@ -1,0 +1,17 @@
+[package]
+name = "swarm-bench"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Scaling-bench harness — spawns 1 swarm-ctrl + N swarm-worker processes, sweeps N, reports timings"
+
+[[bin]]
+name = "swarm-bench"
+path = "src/main.rs"
+
+[dependencies]
+clap        = { workspace = true }
+anyhow      = { workspace = true }
+serde       = { workspace = true, features = ["derive"] }
+serde_json  = { workspace = true }
+hex         = "0.4"
