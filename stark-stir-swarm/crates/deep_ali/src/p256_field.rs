@@ -219,8 +219,9 @@ const _: () = assert!(
 );
 
 /// Tight-form limbs of p itself, used by `freeze` for the speculative
-/// subtraction.  Derived in the file-header doc.
-const P_LIMBS_TIGHT: [i64; NUM_LIMBS] = [
+/// subtraction and by the sub gadget for in-circuit `c = a + p - b`.
+/// Derived in the file-header doc.
+pub const P_LIMBS_TIGHT: [i64; NUM_LIMBS] = [
     0x3FFFFFF, // limb 0 (bits   0.. 26): 2^26 − 1
     0x3FFFFFF, // limb 1 (bits  26.. 52): 2^26 − 1
     0x3FFFFFF, // limb 2 (bits  52.. 78): 2^26 − 1

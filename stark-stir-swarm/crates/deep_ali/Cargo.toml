@@ -32,6 +32,13 @@ merkle    = { path = "../merkle",    default-features = false }
 transcript = { path = "../transcript", default-features = false }
 poseidon = { path = "../poseidon" }
 ark-goldilocks = { path = "../ark-goldilocks" }
+# Bigint arithmetic for the P-256 mul gadget's trace builder
+# (`fill_mul_gadget` computes the quotient witness q = (a·b − c)/p
+# via BigUint long division — only used at proving time, not in the
+# constraint evaluator).  Kept tight: just `num-bigint` and `num-traits`,
+# no extra features.
+num-bigint = "0.4"
+num-traits = "0.2"
 
 
 
