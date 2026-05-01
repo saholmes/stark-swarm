@@ -130,24 +130,29 @@ pub fn read_scalar(trace: &[Vec<F>], row: usize, base: usize) -> ScalarElement {
 
 /// Compute q = (a · b − c) / n via BigUint long division.
 ///
-/// Used at proving time only.  The returned `ScalarElement` is in
-/// [0, n) — the long-division quotient bound.
+/// Used at proving time only.  Uses RAW limbs-to-BigUint conversion
+/// (no freeze) so q is consistent with the actual cell-value integers,
+/// which may be non-canonical when inputs come from upstream gadgets.
 fn compute_scalar_quotient(
     fe_a: &ScalarElement,
     fe_b: &ScalarElement,
     fe_c: &ScalarElement,
 ) -> ScalarElement {
     use num_bigint::BigUint;
+    use num_traits::Zero;
 
-    let mut a_t = *fe_a;
-    a_t.freeze();
-    let mut b_t = *fe_b;
-    b_t.freeze();
-    let mut c_t = *fe_c;
-    c_t.freeze();
-    let a_int = BigUint::from_bytes_be(&a_t.to_be_bytes());
-    let b_int = BigUint::from_bytes_be(&b_t.to_be_bytes());
-    let c_int = BigUint::from_bytes_be(&c_t.to_be_bytes());
+    fn se_to_biguint_raw(fe: &ScalarElement) -> BigUint {
+        let mut acc = BigUint::zero();
+        for i in 0..NUM_LIMBS {
+            debug_assert!(fe.limbs[i] >= 0, "raw: negative limb");
+            let term = BigUint::from(fe.limbs[i] as u64) << (LIMB_BITS as usize * i);
+            acc += term;
+        }
+        acc
+    }
+    let a_int = se_to_biguint_raw(fe_a);
+    let b_int = se_to_biguint_raw(fe_b);
+    let c_int = se_to_biguint_raw(fe_c);
     let prod = &a_int * &b_int;
     debug_assert!(
         prod >= c_int,
@@ -307,6 +312,195 @@ pub fn eval_scalar_mul_gadget(
     }
 
     debug_assert_eq!(out.len(), SCALAR_MUL_GADGET_CONSTRAINTS);
+    out
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  SCALAR-FREEZE GADGET (= FREEZE GADGET with modulus = n)
+// ═══════════════════════════════════════════════════════════════════
+//
+// Brings a tight-form F_n input (integer in [0, 2n)) to canonical
+// form (integer in [0, n)).  Identical structure to the Fp freeze
+// gadget (`p256_field_air::FreezeGadgetLayout`) with `N_LIMBS_TIGHT`
+// substituted for `P_LIMBS_TIGHT`.
+//
+// Used at the end of ECDSA verification to canonicalise the result
+// of `R.x mod n` before equality comparison with the signature `r`.
+//
+// Same cell budget (560) and constraint budget (591) as Fp freeze.
+
+/// Cells owned by a scalar-freeze gadget.
+pub const SCALAR_FREEZE_GADGET_OWNED_CELLS: usize =
+    crate::p256_field_air::FREEZE_GADGET_OWNED_CELLS;
+
+/// Constraints emitted per scalar-freeze gadget.
+pub const SCALAR_FREEZE_GADGET_CONSTRAINTS: usize =
+    crate::p256_field_air::FREEZE_GADGET_CONSTRAINTS;
+
+/// Cell-offset descriptor for one scalar-freeze-gadget instance.
+/// Same shape as `p256_field_air::FreezeGadgetLayout`.
+#[derive(Clone, Copy, Debug)]
+pub struct ScalarFreezeGadgetLayout {
+    pub a_limbs_base: usize,
+    pub diff_limbs_base: usize,
+    pub diff_bits_base: usize,
+    pub c_limbs_base: usize,
+    pub c_bits_base: usize,
+    pub c_pos_base: usize,
+    pub c_neg_base: usize,
+}
+
+/// Fill the gadget-owned cells for c = canonical-form(a) (mod n).
+pub fn fill_scalar_freeze_gadget(
+    trace: &mut [Vec<F>],
+    row: usize,
+    layout: &ScalarFreezeGadgetLayout,
+    fe_a: &ScalarElement,
+) {
+    let n_limbs = &*N_LIMBS_TIGHT;
+    let mut diff_limbs = [0i64; NUM_LIMBS];
+    let mut carries = [0i64; NUM_LIMBS];
+    let mut prev = 0i64;
+    let radix = 1i64 << LIMB_BITS;
+    for k in 0..NUM_LIMBS {
+        let lhs = fe_a.limbs[k] - n_limbs[k] + prev;
+        diff_limbs[k] = lhs.rem_euclid(radix);
+        carries[k] = lhs.div_euclid(radix);
+        debug_assert!(
+            carries[k].abs() <= 1,
+            "scalar freeze chain carry at limb {} out of range",
+            k
+        );
+        prev = carries[k];
+    }
+    debug_assert!(
+        carries[NUM_LIMBS - 1] == 0 || carries[NUM_LIMBS - 1] == -1,
+        "scalar freeze: input not in [0, 2n)"
+    );
+
+    // Multiplexer: c = (carry[9] = -1) ? a : diff.
+    let c_neg_9 = if carries[NUM_LIMBS - 1] == -1 {
+        1i64
+    } else {
+        0i64
+    };
+    let mut c_limbs = [0i64; NUM_LIMBS];
+    for k in 0..NUM_LIMBS {
+        c_limbs[k] = if c_neg_9 == 1 {
+            fe_a.limbs[k]
+        } else {
+            diff_limbs[k]
+        };
+    }
+
+    // Write trace.
+    let diff_se = ScalarElement { limbs: diff_limbs };
+    let c_se = ScalarElement { limbs: c_limbs };
+    place_scalar_split(
+        trace,
+        row,
+        layout.diff_limbs_base,
+        layout.diff_bits_base,
+        &diff_se,
+    );
+    place_scalar_split(trace, row, layout.c_limbs_base, layout.c_bits_base, &c_se);
+
+    // Encode signed carries.
+    for k in 0..NUM_LIMBS {
+        let (cp, cn) = match carries[k] {
+            1 => (1u64, 0u64),
+            -1 => (0u64, 1u64),
+            0 => (0u64, 0u64),
+            _ => unreachable!(),
+        };
+        trace[layout.c_pos_base + k][row] = F::from(cp);
+        trace[layout.c_neg_base + k][row] = F::from(cn);
+    }
+}
+
+/// Emit the scalar-freeze gadget constraints.
+pub fn eval_scalar_freeze_gadget(
+    cur: &[F],
+    layout: &ScalarFreezeGadgetLayout,
+) -> Vec<F> {
+    let n_limbs = &*N_LIMBS_TIGHT;
+    let mut out = Vec::with_capacity(SCALAR_FREEZE_GADGET_CONSTRAINTS);
+
+    // Range check on diff.
+    for i in 0..NUM_LIMBS {
+        for b in 0..LIMB_BITS as usize {
+            let cell = cur[layout.diff_bits_base + i * (LIMB_BITS as usize) + b];
+            out.push(cell * (F::one() - cell));
+        }
+    }
+    for i in 0..NUM_LIMBS {
+        let mut s = F::zero();
+        for b in 0..LIMB_BITS as usize {
+            s += F::from(1u64 << b)
+                * cur[layout.diff_bits_base + i * (LIMB_BITS as usize) + b];
+        }
+        out.push(cur[layout.diff_limbs_base + i] - s);
+    }
+
+    // Range check on c.
+    for i in 0..NUM_LIMBS {
+        for b in 0..LIMB_BITS as usize {
+            let cell = cur[layout.c_bits_base + i * (LIMB_BITS as usize) + b];
+            out.push(cell * (F::one() - cell));
+        }
+    }
+    for i in 0..NUM_LIMBS {
+        let mut s = F::zero();
+        for b in 0..LIMB_BITS as usize {
+            s += F::from(1u64 << b)
+                * cur[layout.c_bits_base + i * (LIMB_BITS as usize) + b];
+        }
+        out.push(cur[layout.c_limbs_base + i] - s);
+    }
+
+    // Chain identities: a[k] − n_limb[k] − diff[k] + carry_in[k] − carry_out[k] · 2^26 = 0.
+    let radix = F::from(1u64 << LIMB_BITS);
+    let net_out = |k: usize| -> F {
+        cur[layout.c_pos_base + k] - cur[layout.c_neg_base + k]
+    };
+    for k in 0..NUM_LIMBS {
+        let a_k = cur[layout.a_limbs_base + k];
+        let n_k = F::from(n_limbs[k] as u64);
+        let diff_k = cur[layout.diff_limbs_base + k];
+        let carry_in = if k == 0 { F::zero() } else { net_out(k - 1) };
+        out.push(a_k - n_k - diff_k + carry_in - radix * net_out(k));
+    }
+
+    // C_pos / C_neg booleanity.
+    for k in 0..NUM_LIMBS {
+        let cp = cur[layout.c_pos_base + k];
+        out.push(cp * (F::one() - cp));
+    }
+    for k in 0..NUM_LIMBS {
+        let cn = cur[layout.c_neg_base + k];
+        out.push(cn * (F::one() - cn));
+    }
+
+    // Mutual exclusion.
+    for k in 0..NUM_LIMBS {
+        let cp = cur[layout.c_pos_base + k];
+        let cn = cur[layout.c_neg_base + k];
+        out.push(cp * cn);
+    }
+
+    // C_pos[9] = 0.
+    out.push(cur[layout.c_pos_base + NUM_LIMBS - 1]);
+
+    // Multiplexer per limb: c[k] − diff[k] − C_neg[9] · (a[k] − diff[k]) = 0.
+    let c_neg_9 = cur[layout.c_neg_base + NUM_LIMBS - 1];
+    for k in 0..NUM_LIMBS {
+        let a_k = cur[layout.a_limbs_base + k];
+        let diff_k = cur[layout.diff_limbs_base + k];
+        let c_k = cur[layout.c_limbs_base + k];
+        out.push(c_k - diff_k - c_neg_9 * (a_k - diff_k));
+    }
+
+    debug_assert_eq!(out.len(), SCALAR_FREEZE_GADGET_CONSTRAINTS);
     out
 }
 
@@ -508,6 +702,140 @@ mod tests {
         let cons = eval_scalar_mul_gadget(&cur, &layout);
         let nonzero = cons.iter().filter(|v| !v.is_zero()).count();
         assert!(nonzero >= 1, "scalar mul tamper undetected");
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    //  Scalar-freeze gadget tests
+    // ─────────────────────────────────────────────────────────────────
+
+    fn standalone_scalar_freeze_layout() -> (ScalarFreezeGadgetLayout, usize) {
+        let bits_per_elem = NUM_LIMBS * (LIMB_BITS as usize);
+        let a_limbs_base = 0;
+        let diff_limbs_base = NUM_LIMBS;
+        let diff_bits_base = diff_limbs_base + NUM_LIMBS;
+        let c_limbs_base = diff_bits_base + bits_per_elem;
+        let c_bits_base = c_limbs_base + NUM_LIMBS;
+        let c_pos_base = c_bits_base + bits_per_elem;
+        let c_neg_base = c_pos_base + NUM_LIMBS;
+        let total = c_neg_base + NUM_LIMBS;
+        (
+            ScalarFreezeGadgetLayout {
+                a_limbs_base,
+                diff_limbs_base,
+                diff_bits_base,
+                c_limbs_base,
+                c_bits_base,
+                c_pos_base,
+                c_neg_base,
+            },
+            total,
+        )
+    }
+
+    fn assert_satisfies_scalar_freeze(
+        layout: &ScalarFreezeGadgetLayout,
+        total_width: usize,
+        fe_a: &ScalarElement,
+    ) {
+        let mut trace = make_trace_row(total_width);
+        for i in 0..NUM_LIMBS {
+            trace[layout.a_limbs_base + i][0] = F::from(fe_a.limbs[i] as u64);
+        }
+        fill_scalar_freeze_gadget(&mut trace, 0, layout, fe_a);
+
+        let cur: Vec<F> = (0..total_width).map(|c| trace[c][0]).collect();
+        let cons = eval_scalar_freeze_gadget(&cur, layout);
+        assert_eq!(cons.len(), SCALAR_FREEZE_GADGET_CONSTRAINTS);
+        for (i, v) in cons.iter().enumerate() {
+            assert!(
+                v.is_zero(),
+                "scalar-freeze constraint #{} non-zero (a={:?})",
+                i,
+                fe_a.limbs
+            );
+        }
+    }
+
+    #[test]
+    fn scalar_freeze_constants_match_field_freeze() {
+        // Same shape and budget as Fp freeze.
+        use crate::p256_field_air::{FREEZE_GADGET_CONSTRAINTS, FREEZE_GADGET_OWNED_CELLS};
+        assert_eq!(SCALAR_FREEZE_GADGET_OWNED_CELLS, FREEZE_GADGET_OWNED_CELLS);
+        assert_eq!(SCALAR_FREEZE_GADGET_CONSTRAINTS, FREEZE_GADGET_CONSTRAINTS);
+    }
+
+    #[test]
+    fn scalar_freeze_canonical_input_unchanged() {
+        let (layout, total) = standalone_scalar_freeze_layout();
+        for seed in 0u64..6 {
+            let a = pseudo_scalar(seed);
+            assert_satisfies_scalar_freeze(&layout, total, &a);
+
+            let mut trace = make_trace_row(total);
+            for i in 0..NUM_LIMBS {
+                trace[layout.a_limbs_base + i][0] = F::from(a.limbs[i] as u64);
+            }
+            fill_scalar_freeze_gadget(&mut trace, 0, &layout, &a);
+            let c = read_scalar(&trace, 0, layout.c_limbs_base);
+            assert_eq!(
+                c.limbs, a.limbs,
+                "freeze of canonical input changed it (seed {})",
+                seed
+            );
+        }
+    }
+
+    #[test]
+    fn scalar_freeze_n_minus_1_is_canonical() {
+        let (layout, total) = standalone_scalar_freeze_layout();
+        let mut n_minus_1 = ScalarElement::one().neg();
+        n_minus_1.freeze();
+        assert_satisfies_scalar_freeze(&layout, total, &n_minus_1);
+    }
+
+    #[test]
+    fn scalar_freeze_value_just_above_n_canonicalises() {
+        // Construct n + 5 in tight non-canonical form, freeze should
+        // produce 5.
+        let (layout, total) = standalone_scalar_freeze_layout();
+        let mut five = ScalarElement::zero();
+        five.limbs[0] = 5;
+        let n_as_se = ScalarElement {
+            limbs: *N_LIMBS_TIGHT,
+        };
+        let mut a = five.add(&n_as_se);
+        a.reduce(); // brings limbs into [0, 2^26) without subtracting n
+        assert_satisfies_scalar_freeze(&layout, total, &a);
+
+        let mut trace = make_trace_row(total);
+        for i in 0..NUM_LIMBS {
+            trace[layout.a_limbs_base + i][0] = F::from(a.limbs[i] as u64);
+        }
+        fill_scalar_freeze_gadget(&mut trace, 0, &layout, &a);
+        let c = read_scalar(&trace, 0, layout.c_limbs_base);
+        let mut expected = ScalarElement::zero();
+        expected.limbs[0] = 5;
+        assert_eq!(c.limbs, expected.limbs, "freeze(n+5) ≠ 5");
+    }
+
+    #[test]
+    fn scalar_freeze_tamper_detection() {
+        let (layout, total) = standalone_scalar_freeze_layout();
+        let a = pseudo_scalar(42);
+        let mut trace = make_trace_row(total);
+        for i in 0..NUM_LIMBS {
+            trace[layout.a_limbs_base + i][0] = F::from(a.limbs[i] as u64);
+        }
+        fill_scalar_freeze_gadget(&mut trace, 0, &layout, &a);
+
+        let target = layout.c_limbs_base + 2;
+        let original = trace[target][0];
+        trace[target][0] = original + F::one();
+
+        let cur: Vec<F> = (0..total).map(|c| trace[c][0]).collect();
+        let cons = eval_scalar_freeze_gadget(&cur, &layout);
+        let nonzero = cons.iter().filter(|v| !v.is_zero()).count();
+        assert!(nonzero >= 1, "tampered scalar freeze c-limb undetected");
     }
 }
 

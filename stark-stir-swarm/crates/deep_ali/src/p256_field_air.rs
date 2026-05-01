@@ -885,15 +885,29 @@ fn place_element_split(
 /// Compute q = (a · b − c) / p using BigUint long division.  Returns
 /// q as a tight-form FieldElement (each limb in [0, 2^26)).
 ///
-/// Used only at proving time by `fill_mul_gadget`.
+/// Used only at proving time by `fill_mul_gadget`.  Uses RAW limbs-
+/// to-BigUint conversion (no freeze) so that the resulting q is
+/// consistent with the actual cell-value integers — which may be
+/// non-canonical (in [p, 2^260)) when the inputs come from upstream
+/// add/sub gadgets that produce tight-but-non-canonical outputs.
 fn compute_quotient(fe_a: &FieldElement, fe_b: &FieldElement, fe_c: &FieldElement) -> FieldElement {
     use num_bigint::BigUint;
-    use num_traits::Num;
+    use num_traits::{Num, Zero};
 
-    fn fe_to_biguint(fe: &FieldElement) -> BigUint {
-        let mut t = *fe;
-        t.freeze();
-        BigUint::from_bytes_be(&t.to_be_bytes())
+    /// Raw limb sum: returns the integer Σ limb[i] · 2^(26i) without
+    /// any mod-p reduction.  Limbs must be non-negative (tight form).
+    fn fe_to_biguint_raw(fe: &FieldElement) -> BigUint {
+        let mut acc = BigUint::zero();
+        for i in 0..NUM_LIMBS {
+            debug_assert!(
+                fe.limbs[i] >= 0,
+                "fe_to_biguint_raw: limb {} negative ({}) — input not tight",
+                i, fe.limbs[i]
+            );
+            let term = BigUint::from(fe.limbs[i] as u64) << (LIMB_BITS as usize * i);
+            acc += term;
+        }
+        acc
     }
     fn biguint_to_fe(x: &BigUint) -> FieldElement {
         let bytes = x.to_bytes_be();
@@ -907,9 +921,9 @@ fn compute_quotient(fe_a: &FieldElement, fe_b: &FieldElement, fe_c: &FieldElemen
         16,
     )
     .unwrap();
-    let a_int = fe_to_biguint(fe_a);
-    let b_int = fe_to_biguint(fe_b);
-    let c_int = fe_to_biguint(fe_c);
+    let a_int = fe_to_biguint_raw(fe_a);
+    let b_int = fe_to_biguint_raw(fe_b);
+    let c_int = fe_to_biguint_raw(fe_c);
     let prod = &a_int * &b_int;
     debug_assert!(
         prod >= c_int,
