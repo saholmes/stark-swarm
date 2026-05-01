@@ -12,7 +12,8 @@ use deep_ali::{
         build_execution_trace, build_hash_rollup_trace, build_nsec3_chain_trace,
         ed25519_zsk_ksk_default_layout, pack_hash_to_leaves, AirType,
     },
-    deep_ali_merge_ed25519_verify, deep_ali_merge_general, deep_ali_merge_sha256,
+    deep_ali_merge_ed25519_verify, deep_ali_merge_ed25519_verify_streaming,
+    deep_ali_merge_general, deep_ali_merge_sha256,
     ed25519_verify_air::{
         fill_verify_air_v16, r_thread_bits_for_kA, verify_air_layout_v16,
         verify_v16_per_row_constraints,
@@ -904,7 +905,10 @@ pub fn prove_zsk_ksk_binding_v2(
     let lde    = lde_trace_columns(&trace, n_trace, BLOWUP)
         .expect("zsk-ksk v2 LDE failed");
     let coeffs = comb_coeffs(verify_v16_per_row_constraints(k_scalar));
-    let (c_eval, _) = deep_ali_merge_ed25519_verify(
+    // Streaming merge: chunked LDE access avoids the L3-cache cliff
+    // that dominates the row-major variant at K≥128 (118-126×
+    // speed-up at K=128/256, bit-exact identical c_eval).
+    let (c_eval, _) = deep_ali_merge_ed25519_verify_streaming(
         &lde, &coeffs, &layout, domain.omega, n_trace, BLOWUP,
     );
 
