@@ -218,6 +218,7 @@ pub fn fr_from_bytes_compressed(bytes: &[u8]) -> Result<F, ark_serialize::Serial
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ark_ff::{BigInteger, PrimeField};
     use std::collections::HashSet;
 
     #[test]

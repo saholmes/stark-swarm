@@ -1623,6 +1623,8 @@ dependencies = [
  "hash",
  "hex",
  "merkle",
+ "num-bigint",
+ "num-traits",
  "once_cell",
  "poseidon",
  "rand 0.8.5",

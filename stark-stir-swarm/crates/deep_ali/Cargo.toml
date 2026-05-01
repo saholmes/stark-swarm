@@ -47,3 +47,9 @@ sha2 = "0.10"
 # Reference implementation for F_{2^255 - 19} arithmetic — used to
 # cross-check the in-circuit `ed25519_field` gadget gadgets.
 curve25519-dalek = "4.1"
+# Bigint oracle for cross-checking F_p arithmetic for NIST P-256 in
+# `p256_field`.  Independent reference, no specific P-256 implementation
+# — we treat the Solinas-reduction native code as the spec and test it
+# against `BigUint` modular arithmetic.
+num-bigint = "0.4"
+num-traits = "0.2"
