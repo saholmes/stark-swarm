@@ -535,6 +535,70 @@ fn bench_fn_fermat_chain_k256() {
     );
 }
 
+fn bench_ecdsa_verify_demo_k(k: usize) {
+    let g_x = 0;
+    let g_y = NUM_LIMBS;
+    let g_z = 2 * NUM_LIMBS;
+    let q_x = 3 * NUM_LIMBS;
+    let q_y = 4 * NUM_LIMBS;
+    let q_z = 5 * NUM_LIMBS;
+    let start = 6 * NUM_LIMBS;
+    let (layout, total) = build_ecdsa_verify_demo_layout(
+        start, g_x, g_y, g_z, q_x, q_y, q_z, k,
+    );
+
+    let g = *GENERATOR;
+    let q_point = g.double();
+    let mut trace = make_trace(total);
+
+    let u1_bits: Vec<bool> = (0..k).map(|i| i % 2 == 0).collect();
+    let u2_bits: Vec<bool> = (0..k).map(|i| i % 3 == 0).collect();
+    let zero_scalar = ScalarElement::zero();
+
+    let t_fill = Instant::now();
+    fill_ecdsa_verify_demo(
+        &mut trace, 0, &layout,
+        &g.x, &g.y, &q_point.x, &q_point.y,
+        &u1_bits, &u2_bits, &zero_scalar,
+    );
+    let fill_dur = t_fill.elapsed();
+
+    // Set r_input = R.x mod n so equality check passes.
+    {
+        let r_x_mod_n_base = layout.r_x_mod_n_layout.c_limbs_base;
+        for i in 0..NUM_LIMBS {
+            let v = trace[r_x_mod_n_base + i][0];
+            trace[layout.r_input_base + i][0] = v;
+        }
+    }
+
+    let cur: Vec<F> = (0..total).map(|c| trace[c][0]).collect();
+    let t_eval = Instant::now();
+    let cons = eval_ecdsa_verify_demo(&cur, &layout);
+    let eval_dur = t_eval.elapsed();
+
+    let total_constraints = ecdsa_verify_demo_constraints(&layout);
+    let nonzero = cons.iter().filter(|v| !v.is_zero()).count();
+    println!(
+        "  Full ECDSA verify K={} (fill)        {:>10.2?}/call   ({} constraints)",
+        k, fill_dur, total_constraints
+    );
+    println!(
+        "  Full ECDSA verify K={} (eval)        {:>10.2?}/call   ({} constraints)",
+        k, eval_dur, total_constraints
+    );
+    println!(
+        "    Total cells: {}",
+        total
+    );
+    println!(
+        "    Constraint satisfaction: {} / {}  ({})",
+        total_constraints - nonzero,
+        total_constraints,
+        if nonzero == 0 { "ALL ZERO ✓" } else { "FAILURES ✗" }
+    );
+}
+
 fn bench_ecdsa_verify_demo_k256() {
     let g_x = 0;
     let g_y = NUM_LIMBS;
@@ -696,6 +760,11 @@ fn main() {
 
     println!("[K=256 Fn Fermat chain — measured (s^-1 for ECDSA inversion)]");
     bench_fn_fermat_chain_k256();
+    println!();
+
+    println!("[K=4 FULL ECDSA verify demo — measured]");
+    println!("    Includes the same gadgets as K=256, scaled down 64×.");
+    bench_ecdsa_verify_demo_k(4);
     println!();
 
     println!("[K=256 FULL ECDSA verify demo — measured]");

@@ -838,6 +838,145 @@ pub fn deep_ali_merge_ed25519_verify(
 }
 
 // ═══════════════════════════════════════════════════════════════════
+//  ECDSA-P256 demo merge (single-row K=k composition)
+// ═══════════════════════════════════════════════════════════════════
+//
+// Bridges our K=k ECDSA verify demo (single-row gadget composition
+// from `crate::p256_ecdsa_air`) to the deep-ALI prove pipeline.
+//
+// The demo is structurally single-row: every gadget's cells live in
+// row 0 of the trace, with all constraints firing on cur (no nxt).
+// To fit the framework's multi-row trace shape, we replicate row 0
+// across all `n_trace` rows.  The constraints satisfy at every row
+// (since they're computed from cur cell values which are identical
+// across rows).  This is a "trivial multi-row" pattern — the proof
+// exercises the STARK pipeline end-to-end on our gadget, and the
+// constraint evaluation cost reflects the real per-row gadget eval
+// time.  Sound for time measurement; for soundness of the proof
+// itself in a production setting, the multi-row state-machine layout
+// (where row k hosts step k of the chain) is the proper integration
+// (Phase 5 v3).
+//
+// Mirrors `deep_ali_merge_sha256` / `deep_ali_merge_ed25519_verify`
+// in shape.
+pub fn deep_ali_merge_ecdsa_demo(
+    trace_evals_on_lde: &[Vec<F>],
+    combination_coeffs: &[F],
+    layout: &crate::p256_ecdsa_air::EcdsaVerifyDemoLayout,
+    omega: F,
+    n_trace: usize,
+    blowup: usize,
+) -> (Vec<F>, CompositionInfo) {
+    let _ = omega;
+    let n = n_trace * blowup;
+    let w = trace_evals_on_lde.len();
+    let k = combination_coeffs.len();
+
+    assert!(
+        w >= layout_max_cell_index(layout) + 1,
+        "trace width must cover all gadget cells in the layout"
+    );
+    for col in trace_evals_on_lde {
+        assert_eq!(col.len(), n, "trace column length mismatch");
+    }
+    let expected_constraints = crate::p256_ecdsa_air::ecdsa_verify_demo_constraints(layout);
+    assert_eq!(
+        k, expected_constraints,
+        "expected {} combination coeffs, got {}",
+        expected_constraints, k
+    );
+
+    // ── Step 1+2 fused: per-LDE-row constraint eval + linear combination ──
+    // Yields phi_eval[i] = Σ_j coeffs[j] * constraints[j](cur_i),
+    // never materializing the k×n constraint_evals buffer (matters at
+    // K=256 where k ~ 40M; this would otherwise hold ~20 GB).
+    let phi_eval: Vec<F>;
+    #[cfg(feature = "parallel")]
+    {
+        if enable_parallel(n) {
+            phi_eval = (0..n).into_par_iter().map(|i| {
+                let cur: Vec<F> = (0..w).map(|c| trace_evals_on_lde[c][i]).collect();
+                let cvals =
+                    crate::p256_ecdsa_air::eval_ecdsa_verify_demo(&cur, layout);
+                debug_assert_eq!(cvals.len(), k);
+                let mut acc = F::zero();
+                for j in 0..k {
+                    acc += combination_coeffs[j] * cvals[j];
+                }
+                acc
+            }).collect();
+        } else {
+            phi_eval = (0..n).map(|i| {
+                let cur: Vec<F> = (0..w).map(|c| trace_evals_on_lde[c][i]).collect();
+                let cvals =
+                    crate::p256_ecdsa_air::eval_ecdsa_verify_demo(&cur, layout);
+                let mut acc = F::zero();
+                for j in 0..k {
+                    acc += combination_coeffs[j] * cvals[j];
+                }
+                acc
+            }).collect();
+        }
+    }
+    #[cfg(not(feature = "parallel"))]
+    {
+        phi_eval = (0..n).map(|i| {
+            let cur: Vec<F> = (0..w).map(|c| trace_evals_on_lde[c][i]).collect();
+            let cvals =
+                crate::p256_ecdsa_air::eval_ecdsa_verify_demo(&cur, layout);
+            let mut acc = F::zero();
+            for j in 0..k {
+                acc += combination_coeffs[j] * cvals[j];
+            }
+            acc
+        }).collect();
+    }
+
+    // ── Step 3: IFFT → coefficients ──
+    let domain =
+        GeneralEvaluationDomain::<F>::new(n).expect("power-of-two domain");
+    let phi_coeffs = domain.ifft(&phi_eval);
+
+    // ── Step 4: divide by Z_H(X) = X^{n_trace} − 1 ──
+    let c_coeffs = poly_div_zh(&phi_coeffs, n_trace);
+
+    // ── Step 5: FFT back to evaluations ──
+    let mut padded = c_coeffs.clone();
+    padded.resize(n, F::zero());
+    let c_eval = domain.fft(&padded);
+
+    // ── Composition metadata ──
+    let max_deg = 2usize; // all our gadgets are degree ≤ 2
+    let phi_degree_bound = max_deg * n_trace;
+    let quotient_degree_bound = if phi_degree_bound > n_trace {
+        phi_degree_bound - n_trace
+    } else {
+        0
+    };
+    let info = CompositionInfo {
+        phi_degree_bound,
+        quotient_degree_bound,
+        rate: quotient_degree_bound as f64 / n as f64,
+        num_constraints: k,
+        max_constraint_degree: max_deg,
+        trace_width: w,
+    };
+    (c_eval, info)
+}
+
+/// Helper: maximum cell index referenced by an
+/// `EcdsaVerifyDemoLayout`.  Used in `deep_ali_merge_ecdsa_demo` to
+/// validate trace width.
+fn layout_max_cell_index(
+    layout: &crate::p256_ecdsa_air::EcdsaVerifyDemoLayout,
+) -> usize {
+    use crate::p256_field::NUM_LIMBS;
+    // r_input_base is the last block allocated by
+    // build_ecdsa_verify_demo_layout (NUM_LIMBS cells).
+    layout.r_input_base + NUM_LIMBS - 1
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  Legacy single-constraint merge (Fibonacci: Φ̃ = a·s + e − t)
 // ═══════════════════════════════════════════════════════════════════
 
