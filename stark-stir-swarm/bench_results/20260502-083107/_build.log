@@ -1,0 +1,468 @@
+warning: ark-goldilocks@0.1.0: Selected INV for -1 convention: 18446744069414584319
+warning: unused imports: `Digest48` and `Digest64`
+ --> crates/hash/src/sha3_impl.rs:2:37
+  |
+2 | use crate::digest_types::{Digest32, Digest48, Digest64};
+  |                                     ^^^^^^^^  ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `sha3::Digest`
+ --> crates/hash/src/selected.rs:6:5
+  |
+6 | use sha3::Digest;   // re-export the trait so callers can do Digest::update
+  |     ^^^^^^^^^^^^
+
+warning: `hash` (lib) generated 2 warnings (run `cargo fix --lib -p hash` to apply 2 suggestions)
+warning: unused import: `std::collections::HashMap`
+ --> crates/deep_ali/src/trace_import.rs:6:5
+  |
+6 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Field`, `One`, and `Zero`
+  --> crates/deep_ali/src/octic_ext.rs:16:14
+   |
+16 | use ark_ff::{Zero, One, Field};
+   |              ^^^^  ^^^  ^^^^^
+
+warning: unused import: `UniformRand`
+  --> crates/deep_ali/src/air_workloads.rs:16:32
+   |
+16 | use ark_ff::{Field, Zero, One, UniformRand};
+   |                                ^^^^^^^^^^^
+
+warning: unused imports: `SeedableRng` and `rngs::StdRng`
+  --> crates/deep_ali/src/air_workloads.rs:18:12
+   |
+18 | use rand::{rngs::StdRng, SeedableRng};
+   |            ^^^^^^^^^^^^  ^^^^^^^^^^^
+
+warning: unused imports: `Field` and `PrimeField`
+   --> crates/deep_ali/src/sha256_air.rs:129:14
+    |
+129 | use ark_ff::{Field, Zero, One, PrimeField};
+    |              ^^^^^             ^^^^^^^^^^
+
+warning: unused import: `BigInteger`
+    --> crates/deep_ali/src/sha512_air.rs:1302:18
+     |
+1302 |     use ark_ff::{BigInteger, PrimeField};
+     |                  ^^^^^^^^^^
+
+warning: unused import: `Field`
+  --> crates/deep_ali/src/ed25519_field_air.rs:93:14
+   |
+93 | use ark_ff::{Field, Zero, One};
+   |              ^^^^^
+
+warning: unused import: `BigInteger`
+   --> crates/deep_ali/src/ed25519_field_air.rs:176:18
+    |
+176 |     use ark_ff::{BigInteger, PrimeField};
+    |                  ^^^^^^^^^^
+
+warning: unused import: `Field`
+  --> crates/deep_ali/src/ed25519_group_air.rs:61:14
+   |
+61 | use ark_ff::{Field, Zero, One};
+   |              ^^^^^
+
+warning: unused imports: `ELEMENT_CELLS`, `SELECT_GADGET_OWNED_CELLS`, and `place_element`
+  --> crates/deep_ali/src/ed25519_group_air.rs:69:25
+   |
+69 |     SelectGadgetLayout, SELECT_GADGET_OWNED_CELLS, SELECT_GADGET_CONSTRAINTS,
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+70 |     place_element, read_element, fill_add_gadget, eval_add_gadget,
+   |     ^^^^^^^^^^^^^
+...
+73 |     ELEMENT_LIMB_CELLS, ELEMENT_CELLS,
+   |                         ^^^^^^^^^^^^^
+
+warning: unused import: `Field`
+  --> crates/deep_ali/src/ed25519_scalar_air.rs:51:14
+   |
+51 | use ark_ff::{Field, Zero, One};
+   |              ^^^^^
+
+warning: unused imports: `One` and `Zero`
+  --> crates/deep_ali/src/ed25519_scalar_mult_air.rs:38:21
+   |
+38 | use ark_ff::{Field, Zero, One};
+   |                     ^^^^  ^^^
+
+warning: unused imports: `place_element` and `read_element`
+  --> crates/deep_ali/src/ed25519_scalar_mult_air.rs:42:32
+   |
+42 | use crate::ed25519_field_air::{place_element, read_element};
+   |                                ^^^^^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `read_cond_add_output`
+  --> crates/deep_ali/src/ed25519_scalar_mult_air.rs:49:5
+   |
+49 |     read_cond_add_output,
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `pad_message_to_blocks` and `self`
+  --> crates/deep_ali/src/ed25519_verify_air.rs:92:5
+   |
+92 |     self, ROWS_PER_BLOCK as SHA512_ROWS_PER_BLOCK,
+   |     ^^^^
+...
+95 |     pad_message_to_blocks,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `SCALAR_REDUCE_OWNED_CELLS` and `self`
+  --> crates/deep_ali/src/ed25519_verify_air.rs:98:5
+   |
+98 |     self, ScalarReduceGadgetLayout,
+   |     ^^^^
+99 |     SCALAR_REDUCE_OWNED_CELLS, SCALAR_REDUCE_CONSTRAINTS,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `MUL_GADGET_OWNED_CELLS` and `SUB_GADGET_OWNED_CELLS`
+   --> crates/deep_ali/src/ed25519_verify_air.rs:108:22
+    |
+108 |     SubGadgetLayout, SUB_GADGET_OWNED_CELLS, SUB_GADGET_CONSTRAINTS,
+    |                      ^^^^^^^^^^^^^^^^^^^^^^
+109 |     fill_sub_gadget, eval_sub_gadget,
+110 |     MulGadgetLayout, MUL_GADGET_OWNED_CELLS, MUL_GADGET_CONSTRAINTS,
+    |                      ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `One` and `Zero`
+  --> crates/deep_ali/src/p256_group_air.rs:84:14
+   |
+84 | use ark_ff::{One, Zero};
+   |              ^^^  ^^^^
+
+warning: unused imports: `SELECT_GADGET_OWNED_CELLS`, `SelectGadgetLayout`, `eval_select_gadget`, and `fill_select_gadget`
+  --> crates/deep_ali/src/p256_group_air.rs:89:59
+   |
+89 |     eval_add_gadget, eval_freeze_gadget, eval_mul_gadget, eval_select_gadget,
+   |                                                           ^^^^^^^^^^^^^^^^^^
+90 |     eval_sub_gadget, fill_add_gadget, fill_freeze_gadget, fill_mul_gadget,
+91 |     fill_select_gadget, fill_sub_gadget, AddGadgetLayout, FreezeGadgetLayout,
+   |     ^^^^^^^^^^^^^^^^^^
+92 |     MulGadgetLayout, SelectGadgetLayout, SubGadgetLayout,
+   |                      ^^^^^^^^^^^^^^^^^^
+...
+95 |     MUL_GADGET_OWNED_CELLS, SELECT_GADGET_OWNED_CELLS, SUB_GADGET_OWNED_CELLS,
+   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `One` and `Zero`
+  --> crates/deep_ali/src/p256_scalar_mul_air.rs:40:14
+   |
+40 | use ark_ff::{One, Zero};
+   |              ^^^  ^^^^
+
+warning: unused import: `crate::p256_field_air::ELEMENT_BIT_CELLS`
+  --> crates/deep_ali/src/p256_scalar_mul_air.rs:85:9
+   |
+85 |     use crate::p256_field_air::ELEMENT_BIT_CELLS;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `One`
+  --> crates/deep_ali/src/p256_scalar_mul_multirow_air.rs:49:14
+   |
+49 | use ark_ff::{One, Zero};
+   |              ^^^
+
+warning: unused imports: `One` and `Zero`
+  --> crates/deep_ali/src/p256_fermat_air.rs:29:14
+   |
+29 | use ark_ff::{One, Zero};
+   |              ^^^  ^^^^
+
+warning: unused import: `LIMB_BITS`
+  --> crates/deep_ali/src/p256_fermat_air.rs:32:25
+   |
+32 | use crate::p256_field::{LIMB_BITS, NUM_LIMBS};
+   |                         ^^^^^^^^^
+
+warning: unused imports: `One` and `Zero`
+  --> crates/deep_ali/src/p256_fp_fermat_air.rs:27:14
+   |
+27 | use ark_ff::{One, Zero};
+   |              ^^^  ^^^^
+
+warning: unused import: `LIMB_BITS`
+  --> crates/deep_ali/src/p256_fp_fermat_air.rs:30:39
+   |
+30 | use crate::p256_field::{FieldElement, LIMB_BITS, NUM_LIMBS};
+   |                                       ^^^^^^^^^
+
+warning: unused import: `crate::p256_field_air::ELEMENT_BIT_CELLS`
+  --> crates/deep_ali/src/p256_ecdsa_air.rs:35:5
+   |
+35 | use crate::p256_field_air::ELEMENT_BIT_CELLS;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `rsa_mul_gadget_constraints`
+  --> crates/deep_ali/src/rsa2048_exp_air.rs:51:46
+   |
+51 |     fill_rsa_mul_gadget, limbs80_to_biguint, rsa_mul_gadget_constraints,
+   |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `One` and `Zero`
+  --> crates/deep_ali/src/rsa2048_stacked_air.rs:25:14
+   |
+25 | use ark_ff::{One, Zero};
+   |              ^^^  ^^^^
+
+warning: unused import: `rsa_exp_multirow_constraints`
+  --> crates/deep_ali/src/rsa2048_stacked_air.rs:31:28
+   |
+31 |     fill_rsa_exp_multirow, rsa_exp_multirow_constraints,
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Field`
+ --> crates/deep_ali/src/lib.rs:7:14
+  |
+7 | use ark_ff::{Field, Zero};
+  |              ^^^^^
+
+warning: unused import: `num_traits::Zero`
+  --> crates/deep_ali/src/rsa2048_field_air.rs:53:5
+   |
+53 | use num_traits::Zero as _;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `One`
+  --> crates/deep_ali/src/p256_ecdsa_air.rs:31:14
+   |
+31 | use ark_ff::{One, Zero};
+   |              ^^^
+
+warning: unused import: `Field`
+  --> crates/deep_ali/src/ed25519_scalar_mult_air.rs:38:14
+   |
+38 | use ark_ff::{Field, Zero, One};
+   |              ^^^^^
+
+warning: unused import: `Field`
+  --> crates/deep_ali/src/ed25519_verify_air.rs:88:14
+   |
+88 | use ark_ff::{Field, Zero, One};
+   |              ^^^^^
+
+warning: value assigned to `z_current` is never read
+    --> crates/deep_ali/src/fri.rs:1592:13
+     |
+1592 |             z_current = ext_pow(z_current, m as u64);
+     |             ^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+     = note: `#[warn(unused_assignments)]` on by default
+
+warning: value assigned to `cur_size` is never read
+    --> crates/deep_ali/src/fri.rs:1682:9
+     |
+1682 |         cur_size = n_final;
+     |         ^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+
+warning: value assigned to `z_current` is never read
+    --> crates/deep_ali/src/fri.rs:2213:13
+     |
+2213 |             z_current = ext_pow(z_current, m as u64);
+     |             ^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+
+warning: value assigned to `k_bits` is never read
+    --> crates/deep_ali/src/air_workloads.rs:1005:17
+     |
+1005 |         let mut k_bits = vec![false; 8];
+     |                 ^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+
+warning: `deep_ali` (lib) generated 39 warnings (run `cargo fix --lib -p deep_ali` to apply 30 suggestions)
+warning: unused import: `deep_ali_merge_ed25519_verify`
+  --> crates/swarm-dns/src/prover.rs:15:5
+   |
+15 |     deep_ali_merge_ed25519_verify, deep_ali_merge_ed25519_verify_streaming,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: `swarm-dns` (lib) generated 1 warning (run `cargo fix --lib -p swarm-dns` to apply 1 suggestion)
+warning: fields `n_records` and `em_list_hash` are never read
+   --> crates/swarm-dns/examples/edge_consumer_full_demo.rs:386:5
+    |
+382 | struct EpochPackage {
+    |        ------------ fields in this struct
+...
+386 |     n_records:        usize,
+    |     ^^^^^^^^^
+387 |     merkle_root:      [u8; 32],
+388 |     em_list_hash:     [u8; 32],
+    |     ^^^^^^^^^^^^
+    |
+    = note: `EpochPackage` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` on by default
+
+warning: unused import: `sha3::Digest`
+  --> crates/swarm-dns/examples/epoch_artefact_size_bench.rs:43:5
+   |
+43 | use sha3::Digest as Sha3Digest;
+   |     ^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `ark_ff::Zero`
+  --> crates/swarm-dns/examples/ed25519_streaming_merge_bench.rs:19:5
+   |
+19 | use ark_ff::Zero;
+   |     ^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `Write`
+  --> crates/swarm-dns/examples/airgapped_resolver_demo.rs:21:21
+   |
+21 | use std::io::{Read, Write};
+   |                     ^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `deep_fri_proof_size_bytes`
+  --> crates/swarm-dns/examples/quantum_mitm_attack_demo.rs:43:11
+   |
+43 |     fri::{deep_fri_proof_size_bytes, deep_fri_prove, deep_fri_verify, DeepFriParams, FriDomain},
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: function `fmt_size` is never used
+  --> crates/swarm-dns/examples/quantum_mitm_attack_demo.rs:80:4
+   |
+80 | fn fmt_size(b: usize) -> String {
+   |    ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: unused import: `sha3::Digest`
+  --> crates/swarm-dns/examples/stacked_rsa_zone_prover.rs:32:5
+   |
+32 | use sha3::Digest as Sha3Digest;
+   |     ^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused variable: `info`
+   --> crates/swarm-dns/examples/stacked_rsa_zone_prover.rs:152:18
+    |
+152 |     let (c_eval, info) = deep_ali_merge_rsa_stacked_streaming(
+    |                  ^^^^ help: if this is intentional, prefix it with an underscore: `_info`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: `swarm-dns` (example "edge_consumer_full_demo") generated 1 warning
+warning: `swarm-dns` (example "epoch_artefact_size_bench") generated 1 warning
+warning: `swarm-dns` (example "ed25519_streaming_merge_bench") generated 1 warning (run `cargo fix --example "ed25519_streaming_merge_bench"` to apply 1 suggestion)
+warning: `swarm-dns` (example "airgapped_resolver_demo") generated 1 warning (run `cargo fix --example "airgapped_resolver_demo"` to apply 1 suggestion)
+warning: `swarm-dns` (example "quantum_mitm_attack_demo") generated 2 warnings (run `cargo fix --example "quantum_mitm_attack_demo"` to apply 1 suggestion)
+warning: `swarm-dns` (example "stacked_rsa_zone_prover") generated 2 warnings
+warning: unused import: `sha3::Digest`
+  --> crates/swarm-dns/examples/mixed_algorithm_zone_rollup.rs:26:5
+   |
+26 | use sha3::Digest as Sha3Digest;
+   |     ^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `signature::SignatureEncoding`
+   --> crates/swarm-dns/examples/mixed_algorithm_zone_rollup.rs:197:28
+    |
+197 |         signature::Signer, signature::SignatureEncoding,
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `shard_id` is never read
+  --> crates/swarm-dns/examples/tld_sharded_prover_demo.rs:92:5
+   |
+91 | struct ShardProveResult {
+   |        ---------------- field in this struct
+92 |     shard_id:    usize,
+   |     ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: unused import: `sha3::Digest`
+  --> crates/swarm-dns/examples/dns_chain_multirecord_bench.rs:23:5
+   |
+23 | use sha3::Digest as Sha3Digest;
+   |     ^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `p256::ecdsa::signature::SignatureEncoding`
+   --> crates/swarm-dns/examples/dns_chain_multirecord_bench.rs:181:9
+    |
+181 |     use p256::ecdsa::signature::SignatureEncoding;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `sigs_per_record` is never read
+   --> crates/swarm-dns/examples/dns_chain_multirecord_bench.rs:355:5
+    |
+352 | struct AlgoStats {
+    |        --------- field in this struct
+...
+355 |     sigs_per_record: usize,
+    |     ^^^^^^^^^^^^^^^
+    |
+    = note: `AlgoStats` has derived impls for the traits `Default` and `Debug`, but these are intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` on by default
+
+warning: `swarm-dns` (example "mixed_algorithm_zone_rollup") generated 2 warnings
+warning: `swarm-dns` (example "tld_sharded_prover_demo") generated 1 warning
+warning: `swarm-dns` (example "dns_chain_multirecord_bench") generated 3 warnings
+warning: unused import: `sha2::Digest`
+  --> crates/swarm-dns/examples/prove_rsa2048_record_v1.rs:57:5
+   |
+57 | use sha2::Digest as ShaDigest;
+   |     ^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `Duration`
+  --> crates/swarm-dns/examples/crossalg_three_signature_bench.rs:12:17
+   |
+12 | use std::time::{Duration, Instant};
+   |                 ^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `CanonicalSerialize` and `Compress`
+  --> crates/swarm-dns/examples/crossalg_three_signature_bench.rs:16:21
+   |
+16 | use ark_serialize::{CanonicalSerialize, Compress};
+   |                     ^^^^^^^^^^^^^^^^^^  ^^^^^^^^
+
+warning: unused import: `sha3::Digest`
+  --> crates/swarm-dns/examples/crossalg_three_signature_bench.rs:20:5
+   |
+20 | use sha3::Digest as Sha3Digest;
+   |     ^^^^^^^^^^^^
+
+warning: unused import: `p256::ecdsa::signature::SignatureEncoding`
+   --> crates/swarm-dns/examples/crossalg_three_signature_bench.rs:223:9
+    |
+223 |     use p256::ecdsa::signature::SignatureEncoding;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `PrimeField`
+  --> crates/swarm-dns/examples/dns_megazone_demo.rs:27:14
+   |
+27 | use ark_ff::{PrimeField, Zero};
+   |              ^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: `swarm-dns` (example "prove_rsa2048_record_v1") generated 1 warning
+warning: `swarm-dns` (example "crossalg_three_signature_bench") generated 4 warnings (run `cargo fix --example "crossalg_three_signature_bench"` to apply 2 suggestions)
+warning: `swarm-dns` (example "dns_megazone_demo") generated 1 warning (run `cargo fix --example "dns_megazone_demo"` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.07s
