@@ -1944,6 +1944,110 @@ pub fn deep_ali_merge_rsa_exp_multirow_streaming(
 }
 
 // ═══════════════════════════════════════════════════════════════════
+//  Streaming stacked-RSA merge (N records side-by-side, 1 FRI proof)
+// ═══════════════════════════════════════════════════════════════════
+pub fn deep_ali_merge_rsa_stacked_streaming(
+    trace_evals_on_lde: &[Vec<F>],
+    combination_coeffs: &[F],
+    layout: &crate::rsa2048_stacked_air::RsaStackedLayout,
+    omega: F,
+    n_trace: usize,
+    blowup: usize,
+) -> (Vec<F>, CompositionInfo) {
+    use crate::rsa2048_stacked_air::{
+        eval_rsa_stacked_per_row, rsa_stacked_constraints,
+    };
+
+    let _ = omega;
+    let n = n_trace * blowup;
+    let w = layout.width;
+    let k = rsa_stacked_constraints(layout);
+
+    assert_eq!(trace_evals_on_lde.len(), w);
+    assert_eq!(combination_coeffs.len(), k);
+    for col in trace_evals_on_lde {
+        assert_eq!(col.len(), n);
+    }
+
+    let build_chunk = |base: usize| -> Vec<Vec<F>> {
+        #[cfg(feature = "parallel")]
+        {
+            (0..blowup)
+                .into_par_iter()
+                .map(|idx| (0..w).map(|c| trace_evals_on_lde[c][base + idx]).collect())
+                .collect()
+        }
+        #[cfg(not(feature = "parallel"))]
+        {
+            (0..blowup)
+                .map(|idx| (0..w).map(|c| trace_evals_on_lde[c][base + idx]).collect())
+                .collect()
+        }
+    };
+
+    let mut phi_eval = vec![F::zero(); n];
+    let mut cur_chunk = build_chunk(0);
+    let chunk0_for_wrap = cur_chunk.clone();
+
+    for r in 0..n_trace {
+        let nxt_chunk: Vec<Vec<F>> = if r + 1 < n_trace {
+            build_chunk((r + 1) * blowup)
+        } else {
+            chunk0_for_wrap.clone()
+        };
+        let base = r * blowup;
+        let trace_row = r;
+        let chunk_phi: Vec<F>;
+        #[cfg(feature = "parallel")]
+        {
+            chunk_phi = (0..blowup)
+                .into_par_iter()
+                .map(|idx| {
+                    let cur: &[F] = &cur_chunk[idx];
+                    let nxt: &[F] = &nxt_chunk[idx];
+                    let cvals = eval_rsa_stacked_per_row(cur, nxt, trace_row, n_trace, layout);
+                    let mut acc = F::zero();
+                    for j in 0..k { acc += combination_coeffs[j] * cvals[j]; }
+                    acc
+                })
+                .collect();
+        }
+        #[cfg(not(feature = "parallel"))]
+        {
+            chunk_phi = (0..blowup)
+                .map(|idx| {
+                    let cur: &[F] = &cur_chunk[idx];
+                    let nxt: &[F] = &nxt_chunk[idx];
+                    let cvals = eval_rsa_stacked_per_row(cur, nxt, trace_row, n_trace, layout);
+                    let mut acc = F::zero();
+                    for j in 0..k { acc += combination_coeffs[j] * cvals[j]; }
+                    acc
+                })
+                .collect();
+        }
+        for (idx, v) in chunk_phi.into_iter().enumerate() { phi_eval[base + idx] = v; }
+        cur_chunk = nxt_chunk;
+    }
+
+    let domain = GeneralEvaluationDomain::<F>::new(n).expect("power-of-two domain");
+    let phi_coeffs = domain.ifft(&phi_eval);
+    let c_coeffs = poly_div_zh(&phi_coeffs, n_trace);
+    let mut padded = c_coeffs.clone();
+    padded.resize(n, F::zero());
+    let c_eval = domain.fft(&padded);
+
+    let max_deg = 2usize;
+    let phi_degree_bound = max_deg * n_trace;
+    let quotient_degree_bound = if phi_degree_bound > n_trace { phi_degree_bound - n_trace } else { 0 };
+    let info = CompositionInfo {
+        phi_degree_bound, quotient_degree_bound,
+        rate: quotient_degree_bound as f64 / n as f64,
+        num_constraints: k, max_constraint_degree: max_deg, trace_width: w,
+    };
+    (c_eval, info)
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  Legacy single-constraint merge (Fibonacci: Φ̃ = a·s + e − t)
 // ═══════════════════════════════════════════════════════════════════
 
@@ -2064,3 +2168,4 @@ pub mod p256_ecdsa_air;
 pub mod rsa2048;
 pub mod rsa2048_field_air;
 pub mod rsa2048_exp_air;
+pub mod rsa2048_stacked_air;
