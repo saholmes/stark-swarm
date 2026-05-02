@@ -224,8 +224,10 @@ run_at_threads() {
         tail -5 "$log" | sed 's/^/    /'
     fi
 
+    local status_str="OK"
+    [[ $rc -ne 0 ]] && status_str="FAIL_${rc}"
     printf '%s\t%s\t%s\t%s\t%s\n' \
-        "$name" "$threads" "$([[ $rc -eq 0 ]] && echo OK || echo FAIL($rc))" \
+        "$name" "$threads" "$status_str" \
         "$wall_sec" "$rss" >> "$SWEEP_TSV"
 }
 
@@ -338,9 +340,10 @@ run_concurrent() {
         else
             echo "${C_RED}  ✗${C_RST} agg_wall=${agg_wall}s rc=$rc"
         fi
+        local status_str="OK"
+        [[ $rc -ne 0 ]] && status_str="FAIL_${rc}"
         printf '%s\t%s\t%s\t%s\t%s\t%s\n' \
-            "$W" "$per_worker" \
-            "$([[ $rc -eq 0 ]] && echo OK || echo FAIL($rc))" \
+            "$W" "$per_worker" "$status_str" \
             "$agg_wall" "$throughput" "$efficiency" \
             >> "$CONC_TSV"
         echo

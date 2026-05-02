@@ -219,8 +219,10 @@ run_bench() {
         tail -5 "$log" | sed 's/^/    /'
     fi
 
+    local status_str="OK"
+    [[ $rc -ne 0 ]] && status_str="FAIL_${rc}"
     printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-        "$name" "$([[ $rc -eq 0 ]] && echo OK || echo FAIL($rc))" \
+        "$name" "$status_str" \
         "$wall_sec" "$rss" "$INSTANCE_TYPE" "$RAYON_NUM_THREADS" "$rss_per_core" \
         >> "$SUMMARY_TSV"
 }
@@ -279,8 +281,10 @@ run_concurrent_workers() {
         echo "${C_DIM}  (100%% = perfect linear scaling; <100%% = bandwidth-bound)${C_RST}"
     fi
 
+    local status_str="OK"
+    [[ $rc -ne 0 ]] && status_str="FAIL_${rc}"
     printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-        "concurrent_${N}_workers" "$([[ $rc -eq 0 ]] && echo OK || echo FAIL($rc))" \
+        "concurrent_${N}_workers" "$status_str" \
         "$agg_wall" "(n/a)" "$INSTANCE_TYPE" \
         "$N x $per_worker_threads" "(n/a)" \
         >> "$SUMMARY_TSV"
