@@ -198,6 +198,41 @@ run_long_n() {
     run_bench dns_chain_multirecord_bench RSA_N=100 ED_N=5 EC_N=5
 }
 
+# Run concurrent-worker scaling probe via bench_thread_sweep.sh.
+# Captures cost-parity numbers (η_W=2, η_W=4) on the same hardware run.
+run_concurrent() {
+    echo "${C_YEL}=== CONCURRENT-WORKER SCALING (~10 min) ===${C_RST}"
+    local sweep_script="$SCRIPT_DIR/bench_thread_sweep.sh"
+    if [[ ! -x "$sweep_script" ]]; then
+        echo "${C_RED}  skipped: $sweep_script not found or not executable${C_RST}"
+        return 0
+    fi
+    # bench_thread_sweep.sh writes its own results dir under
+    # bench_results/thread_sweep/<instance>-<ts>/.  We copy its summary
+    # into our run dir for easy retrieval and append a pointer line.
+    local sweep_log="$BENCH_OUT/concurrent_sweep.log"
+    local rc=0
+    if ! bash "$sweep_script" concurrent > "$sweep_log" 2>&1; then
+        rc=$?
+    fi
+    # Locate and copy the produced summary.
+    local sweep_dir
+    sweep_dir=$(ls -1td "$REPO_DIR/bench_results/thread_sweep"/* 2>/dev/null | head -1)
+    if [[ -n "$sweep_dir" && -f "$sweep_dir/summary.txt" ]]; then
+        cp "$sweep_dir/summary.txt"     "$BENCH_OUT/concurrent_summary.txt"
+        cp "$sweep_dir/concurrent.tsv"  "$BENCH_OUT/concurrent.tsv" 2>/dev/null || true
+        echo "${C_GRN}  ✓${C_RST} concurrent results copied to $BENCH_OUT/concurrent_summary.txt"
+    else
+        echo "${C_RED}  ✗${C_RST} concurrent run did not produce a summary (rc=$rc)"
+    fi
+    # Append a pointer row to the main TSV so it appears in the final summary.
+    printf '%s\t%s\t%s\t%s\t%s\n' \
+        "concurrent_worker_sweep" \
+        "$([[ $rc -eq 0 ]] && echo OK || echo FAIL_${rc})" \
+        "(see concurrent_summary.txt)" "(n/a)" "$sweep_log" \
+        >> "$SUMMARY_TSV"
+}
+
 # ─────────────────────────────────────────────────────────────────
 # Summary
 # ─────────────────────────────────────────────────────────────────
@@ -215,6 +250,12 @@ write_summary() {
         # Skip header row of TSV
         tail -n +2 "$SUMMARY_TSV" | \
             awk -F'\t' '{ printf "%-45s %-9s %12s %14s\n", $1, $2, $3, $4 }'
+        # Append concurrent-worker block if produced.
+        if [[ -f "$BENCH_OUT/concurrent_summary.txt" ]]; then
+            printf '\n'
+            printf '%s\n' "── Concurrent-worker scaling ──"
+            cat "$BENCH_OUT/concurrent_summary.txt"
+        fi
     } | tee "$SUMMARY_TXT"
 }
 
@@ -230,14 +271,15 @@ USAGE:
     $0 <tier>
 
 TIERS:
-    smoke      ~5 min   verify install + crypto round-trip
-    single    ~16 min   per-algorithm + cross-algo benchmarks
-    edge      ~30 min   edge consumer + airgapped + TLD demos
-    scaling   ~35 min   multi-record + streaming-merge + gadgets
-    quantum    ~8 min   quantum-MITM attack demo
-    full      ~90 min   smoke + single + edge + scaling + quantum
-    paper     ~90 min   every bench cited in main-24.tex (alias for 'full')
-    long-n     ~8 hr    multi-record at large N (RSA=100, ED=5, EC=5)
+    smoke       ~5 min   verify install + crypto round-trip
+    single     ~16 min   per-algorithm + cross-algo benchmarks
+    edge       ~30 min   edge consumer + airgapped + TLD demos
+    scaling    ~35 min   multi-record + streaming-merge + gadgets
+    quantum     ~8 min   quantum-MITM attack demo
+    concurrent ~10 min   concurrent-worker cost-parity (W=1,2,4,8)
+    full      ~100 min   smoke + single + edge + scaling + quantum + concurrent
+    paper     ~100 min   every bench cited in main-25.tex (alias for 'full')
+    long-n      ~8 hr    multi-record at large N (RSA=100, ED=5, EC=5)
 
 ENV:
     RAYON_NUM_THREADS=N    pin parallelism (default: physical cores)
@@ -258,12 +300,14 @@ case "$TIER" in
     edge)        run_edge ;;
     scaling)     run_scaling ;;
     quantum)     run_quantum ;;
+    concurrent)  run_concurrent ;;
     full|paper)
         run_smoke
         run_single
         run_edge
         run_scaling
         run_quantum
+        run_concurrent
         ;;
     long-n)      run_long_n ;;
     *) usage ;;
